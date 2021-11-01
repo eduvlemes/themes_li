@@ -481,6 +481,9 @@ theme.watch = function(){
         theme.functions.sideCartScroll();
         theme.functions.productListImageSize(theme.settings.imageSize);
     });
+    $(window).scroll(function(){
+        theme.functions.sideCartScroll();
+    })
     $('#rodape > div:last-child a').attr('href',theme.info.ref);
     $('#rodape > div:last-child a').before('<a href="'+ theme.info.external +'" target="_blank">'+ theme.info.icon +'</a>');        
 }

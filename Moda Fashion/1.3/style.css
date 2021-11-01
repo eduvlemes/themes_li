@@ -2718,3 +2718,9 @@ html[alpix-theme] body.pagina-produto .secao-principal > .produto .destaque-parc
 #barraNewsletter .componente .input-conteiner{
     display:flex;justify-content:space-between
 }
+
+@media(max-width:990px){
+    #theme_sideCart{
+        height: 100vh;  max-height: -webkit-fill-available;
+    }
+}
