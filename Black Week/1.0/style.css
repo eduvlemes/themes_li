@@ -144,17 +144,27 @@ border-radius:100px;
 html::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
+/*  */
+.menu.superior{background-color:unset;}
 
-body,
-.menu.superior,
-.borda-alpha,
-.listagem .titulo-categoria,
-.listagem .titulo-categoria:hover{
+body:not(.pagina-inicial),
+body:not(.pagina-inicial) .borda-alpha,
+body:not(.pagina-inicial) .listagem .titulo-categoria,
+body:not(.pagina-inicial) .listagem .titulo-categoria:hover{
     background:#fff;
     box-shadow:unset;
     border:0;
     padding:0;
 }
+
+.listagem .titulo-categoria,
+.listagem .titulo-categoria:hover{
+    box-shadow:unset;
+    border:0;
+    padding:0;
+    background:unset;
+}
+
 
 .conteiner-principal .conteiner{
     box-shadow:unset;
@@ -376,7 +386,7 @@ textarea:focus{
     position:sticky;
     top:-1px;
     z-index:999;
-    background:#fff;
+    /* background:#fff; */
     transition-delay: 0s;
     transition-duration: 0.4s;
     transition-property: all;
@@ -1315,7 +1325,7 @@ body #rodape .gateways-rodape{
     /* margin: 3rem 0; */
 }
 .pagina-produto .secao-principal > .produto > .row-fluid:first-child .acoes-produto .comprar{
-    border-top:1px solid #e5e5e5;
+    border-top:1px solid #f8f8f8;
     padding-top:20px;
     margin-top:20px;
 }
@@ -1422,7 +1432,7 @@ body #rodape .gateways-rodape{
 .lista-redes ul li{float:none}
 
 .pagina-produto .cep{
-    border-top: 1px solid #e5e5e5!important;
+    border-top: 1px solid #f8f8f8!important;
     padding-top: 20px;
     padding-bottom:0;
 }
@@ -1682,7 +1692,7 @@ body #rodape .gateways-rodape{
 .pagina-carrinho.carrinho-checkout .theme_order-resume .bg-dark.esconder-mobile > td *{font-size:12px!important;white-space:nowrap;margin:0;font-weight:600;}
 .pagina-carrinho.carrinho-checkout .theme_order-resume .bg-dark > td *{font-size:14px!important;white-space:nowrap;margin:0;font-weight:600;text-align:right;}
 .pagina-carrinho.carrinho-checkout .theme_order-resume .bg-dark{
-    border-top: 1px solid #e5e5e5!important;
+    border-top: 1px solid #f8f8f8!important;
 }
 .carrinho-checkout .selo-ssl{display:none;}
 
@@ -1814,7 +1824,7 @@ body #rodape .gateways-rodape{
 }
 #theme_header-menu .menu.superior .nivel-dois > li{
     margin: 8px 16px;
-    border-bottom: 1px solid #e5e5e5!important;
+    border-bottom: 1px solid #f8f8f8!important;
     padding: 0 0 10px 0;
 }
 #theme_header-menu .menu.superior .nivel-dois > li:last-child{border-bottom:0!important;padding-bottom:0}
@@ -1978,6 +1988,7 @@ body #rodape .gateways-rodape{
     }
     .breadcrumbs{display:none}
 
+    .listagem ul:not([data-produtos-linha]):not(.produtos-carrossel) > li,
     .listagem ul[data-produtos-linha="4"]:not(.produtos-carrossel) > li,
     .listagem ul[data-produtos-linha="3"]:not(.produtos-carrossel) > li,
     .listagem ul[data-produtos-linha="2"]:not(.produtos-carrossel) > li, .listagem ul:not([data-produtos-linha]) > li{
@@ -2000,10 +2011,13 @@ body #rodape .gateways-rodape{
     .listagem .info-produto{padding-top:10px;}
     .listagem .listagem-item .nome-produto{margin:0;}
     .bandeiras-produto span.bandeira-promocao{
-        height: 36px;
+        /* height: 36px;
         width: 36px;
-        line-height: 36px;
+        line-height: 36px; */
         font-size: 10px;
+        width:fit-content;
+        padding-left:5px;
+        padding-right:5px;
     }
 
     /* .titulo-categoria strong:before, .titulo-categoria strong:after, .listagem h4.titulo:before, .listagem h4.titulo:after{width:30px;} */
@@ -2403,7 +2417,7 @@ input:-webkit-autofill:active  {
     .produto .principal > div{border:0}
     .abas-custom .tab-content{margin:0}
 
-    .produto .cep{border-bottom: 1px solid #e5e5e5!important;}
+    .produto .cep{border-bottom: 1px solid #f8f8f8!important;}
     .titulo-categoria strong, .listagem h4.titulo{padding:0 15px;}
 
     .alert{font-size:12px;}
@@ -2769,10 +2783,10 @@ body .theme_worker-testimonials > .slider{
 
 /* black week */
 
-#cabecalho{background:#000;}
-body.pagina-inicial,
+/* #cabecalho{background:#000;} */
+/* body.pagina-inicial,
 .pagina-inicial .borda-alpha,
-.pagina-inicial .listagem .titulo-categoria{background:#000}
+.pagina-inicial .listagem .titulo-categoria{background:#000} */
 
 
 #theme_header-functions .search-trigger svg path{fill:#fff;}
@@ -2782,7 +2796,7 @@ body.pagina-inicial,
 }
 
 @media(min-width:990px){
-    .menu.superior{background:#000;}    
+    /* .menu.superior{background:#000;}     */
     .menu.superior .titulo,
     .menu li>a i, .menu-responsivo i, .menu li>a:hover i, .menu-responsivo i{color:#fff;}
 }
@@ -2860,7 +2874,7 @@ height:20px;
     .theme-customGallery-content-info{padding-left:30px;}  
 
     body:not(.pagina-inicial):not(.pagina-produto) .listagem-item{
-        border-right: 1px solid #e5e5e5!important;
+        border-right: 1px solid #f8f8f8!important;
         border-radius: 0;
     }
     .listagem ul > li:nth-child(4n) > .listagem-item{border-right: 0!important;}
@@ -3078,6 +3092,26 @@ body .theme_worker-categorySlider .slider{margin-top:30px;margin-bottom:50px;}
         background:unset;
     }
     .menu.superior li.com-filho .nivel-dois > .com-filho > a{font-weight:600;}
-    .menu.superior li.com-filho .nivel-dois .nivel-tres li{}
-    .menu.superior li.com-filho .nivel-dois .nivel-tres li a{}
+
+    .span12.produto > div:first-child, .span12.produto > div.row-fluid{padding:0}
+    .pagina-produto #corpo .conteiner > div{padding:0;}
+    .theme-customGallery-block{padding:15px;}
+    .produto > .row-fluid > .span4 > .principal{padding:0 15px 15px 15px;}
+    .pagina-produto .secao-principal > .produto > .row-fluid:first-child .acoes-produto[data-variacao-id=""]{padding-bottom:5px;}
+    .pagina-produto .secao-principal > .produto > .row-fluid:first-child .acoes-produto .comprar{margin-top:0}
+    .produto .principal > div.info-principal-produto:empty{display:none;}
+    .abas-custom{padding:0px 15px 0 15px}
+    .atributos > div:first-child{border-top:0;padding-top:0;}
+    .pagina-produto .atributos div ul {
+        margin: 5px 0;
+    }
+
+    .pagina-categoria #corpo .conteiner > div,
+    .pagina-busca #corpo .conteiner > div{padding:5px;}
 }
+
+.letTitlesBlack.pagina-inicial .listagem .titulo-categoria strong,
+.letTitlesBlack .theme_worker-categorySlider li a strong{
+    color:#000;
+}
+body .breadcrumbs.borda-alpha{background:transparent;}
