@@ -968,16 +968,7 @@ theme.worker.testimonials.run = function(el){
 
 theme.worker.categorySlider = {};
 theme.worker.categorySlider.list = [];
-theme.worker.categorySlider.list.push({title: 'Fritadeiras', url:'/', img: 'https://cdn.awsli.com.br/1230/1230205/arquivos/10.png'});
-theme.worker.categorySlider.list.push({title: 'Ventiladores', url:'/', img: 'https://cdn.awsli.com.br/1230/1230205/arquivos/9.png'});
-theme.worker.categorySlider.list.push({title: 'Geladeiras', url:'/', img: 'https://cdn.awsli.com.br/1230/1230205/arquivos/8.png'});
-theme.worker.categorySlider.list.push({title: 'Climatização', url:'/', img: 'https://cdn.awsli.com.br/1230/1230205/arquivos/7.png'});
-theme.worker.categorySlider.list.push({title: 'Televisores', url:'/', img: 'https://cdn.awsli.com.br/1230/1230205/arquivos/6.png'});
-theme.worker.categorySlider.list.push({title: 'Livros', url:'/', img: 'https://cdn.awsli.com.br/1230/1230205/arquivos/5.png'});
-theme.worker.categorySlider.list.push({title: 'Celulares', url:'/', img: 'https://cdn.awsli.com.br/1230/1230205/arquivos/4.png'});
-theme.worker.categorySlider.list.push({title: 'Lavadouras', url:'/', img: 'https://cdn.awsli.com.br/1230/1230205/arquivos/3.png'});
-theme.worker.categorySlider.list.push({title: 'Games', url:'/', img: 'https://cdn.awsli.com.br/1230/1230205/arquivos/2.png'});
-theme.worker.categorySlider.list.push({title: 'Áudio', url:'/', img: 'https://cdn.awsli.com.br/1230/1230205/arquivos/1.png'});
+
 theme.worker.categorySlider.config = {title:"Categorias em destaque",targetFunction: function(oObj){oObj.insertBefore('.secao-principal');}};
 // theme.worker.categorySlider.style = '<style>/* APX CATEGORY SLIDER */.theme_worker-categorySlider{padding:0 15px;}.theme_worker-categorySlider ul{margin:15px 0}.theme_worker-categorySlider li{}.theme_worker-categorySlider li a{white-space: normal; display: block; text-align: center; font-size: 14px;}.theme_worker-categorySlider li a img{max-height:100px;max-width:100%;}.theme_worker-categorySlider li a strong{font-weight: normal; font-family: "Roboto"; padding: 15px; border: 1px solid #f8f8f8; border-radius: 10px; box-shadow: 5px 5px 5px rgb(0 0 0 / 3%); margin: 15px 0; display:block; color:'+ theme.worker.categorySlider.config.nameColor +';}.theme_worker-categorySlider .glide__arrows .glide__arrow{position: absolute; top: 50%; left: -23px; height: 46px; width: 46px; border: 1px solid #f8f8f8; border-radius: 50%; box-shadow: 5px 5px 5px rgb(0 0 0 / 3%); background: #fff; transform: translate(0, -50%);}.theme_worker-categorySlider .glide__arrows .glide__arrow svg{height: 46px; width: 34px; fill: #8d8d8d;}.theme_worker-categorySlider .glide__arrows .glide__arrow.glide__arrow--next{left: auto; right: -23px;}@media(max-width:990px){.theme_worker-categorySlider .glide:not(.glide--carousel) .glide__arrows{display:none!important;}.theme_worker-categorySlider .glide:not(.glide--carousel) .glide__slides{display: flex; flex-wrap: wrap; gap: 0 10px; overflow: visible; align-items: flex-start!important;}.theme_worker-categorySlider .glide:not(.glide--carousel) .glide__track{overflow:visible;}.theme_worker-categorySlider .glide:not(.glide--carousel) .glide__slides > li{flex: 0 0 calc(50% - 5px);}}</style>';
 $(document).ready(function(){theme.worker.categorySlider.match = $('.pagina-inicial').length > 0;})
