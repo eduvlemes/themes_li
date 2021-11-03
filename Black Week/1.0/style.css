@@ -1574,7 +1574,7 @@ body #rodape .gateways-rodape{
     display: block;
     position: relative;
     width: 660px!important;
-    background: #f8f8f8;
+    background: transparent;
     border-radius: 0;
     border:0px;
     margin: 0px auto!important;
@@ -1598,7 +1598,7 @@ body #rodape .gateways-rodape{
 }
 .carrinho-checkout .campos-pedido > .campos-pedido > .checkout-alerta-seguro{
     border: 0;
-    background: #f8f8f8;
+    background: transparent;
     margin: 0 auto;
 }
 .resumo-compra.caixa-sombreada,
@@ -2308,7 +2308,7 @@ justify-content: center;
     }
     .secao-banners .conteiner .mini-banner .modulo:not(:last-child){margin-bottom:15px;}
     .tabela-carrinho .excluir a,
-    #theme_sideCart #theme_sideCart-content .table-body td:nth-child(5) *{font-size:18px!important;}
+    /* #theme_sideCart #theme_sideCart-content .table-body td:nth-child(5) *{font-size:18px!important;} */
 }
 
 #apx_sideLogin{
@@ -2803,7 +2803,7 @@ body.pagina-inicial,
     margin-right: auto;
     margin-left: unset;
     padding: 0;
-    margin-bottom: 0;
+    margin-bottom: 5px;
 }
 
 .pagina-inicial .listagem .titulo-categoria strong{color:#fff}
@@ -2995,6 +2995,19 @@ body .theme_worker-categorySlider .slider{margin-top:30px;margin-bottom:50px;}
 .listagem .listagem-item .preco-produto.destaque-avista .desconto-a-vista,
 .listagem .listagem-item .preco-produto.destaque-avista *{font-size: var(--productFontSize);color:#666;font-weight:normal;}
 
+
+/* PAGE PRICE */
+.pagina-produto .produto .principal .acoes-produto .preco-produto.destaque-parcela .preco-parcela,
+.pagina-produto .produto .principal .acoes-produto .preco-produto.destaque-parcela .preco-parcela *,
+.pagina-produto .produto .principal .acoes-produto .preco-produto.destaque-preco .preco-promocional,
+.pagina-produto .produto .principal .acoes-produto .preco-produto.destaque-preco .preco-promocional *,
+.pagina-produto .produto .principal .acoes-produto .preco-produto.destaque-avista .desconto-a-vista .titulo{font-size: calc(var(--productFontSize) * 1.8);color:#000;font-weight:600;line-height:calc(var(--productFontSize) * 3)}
+
+.pagina-produto .produto .principal .acoes-produto .preco-produto.destaque-preco *,
+.pagina-produto .produto .principal .acoes-produto .preco-produto.destaque-parcela *,
+.pagina-produto .produto .principal .acoes-produto .preco-produto.destaque-avista .desconto-a-vista,
+.pagina-produto .produto .principal .acoes-produto .preco-produto.destaque-avista *{font-size: calc(var(--productFontSize) * 1.2);line-height:calc(var(--productFontSize) * 2);color:#666;font-weight:normal;}
+
 @media(max-width:990px){
     :root{
         --productFontSize: 11px;
@@ -3015,4 +3028,56 @@ body .theme_worker-categorySlider .slider{margin-top:30px;margin-bottom:50px;}
         padding:5px;
     }
     .listagem>ul:not(.produtos-carrossel){margin-left:-5px;margin-right:-5px}
+}
+
+@media(max-width:990px){
+    #theme_sideCart{
+        height: 100vh;  max-height: -webkit-fill-available;
+    }
+}
+
+
+/* CHECKOUT TOPBAR */
+#cabecalho .atendimento{
+    background: unset;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    gap:30px;
+}
+#cabecalho .atendimento > li{
+    width: auto;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+#cabecalho .atendimento .icone-box{background:unset;}
+#cabecalho .atendimento > li a{
+    color: #fff;
+    box-sizing: border-box;
+    display: block;
+}
+#cabecalho .atendimento li strong{
+    color:#fff;
+}
+
+@media(max-width:990px){
+    .menu.superior li.com-filho .nivel-dois i{display:none!important}
+    .menu.superior a{
+        color:var(--menuFontColor);
+    }
+    .menu.superior li.com-filho .nivel-dois .nivel-tres{
+        position: relative;
+        display: block;
+        left: 0;
+        box-shadow: unset;
+        font-size: 12px;
+        padding: 0 10px;
+        background:unset;
+    }
+    .menu.superior li.com-filho .nivel-dois > .com-filho > a{font-weight:600;}
+    .menu.superior li.com-filho .nivel-dois .nivel-tres li{}
+    .menu.superior li.com-filho .nivel-dois .nivel-tres li a{}
 }
