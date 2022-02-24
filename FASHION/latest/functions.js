@@ -1100,37 +1100,6 @@ theme.worker.insertBanners.run = function(){
     })  
 }
 
-theme.worker.insertBanners = {};
-theme.worker.insertBanners.list = [];
-theme.worker.insertBanners.functions = {};
-theme.worker.insertBanners.style = "";
-theme.worker.insertBanners.config = {};
-theme.worker.insertBanners.run = function(){
-    $.each(theme.worker.insertBanners.list, function(k, item){
-        let targetSelector = null;
-        switch (item.target){
-            case 'Lançamento':
-                targetSelector = $('.vitrine-lancamento + ul');
-                break;
-            case 'Mais Vendidos':
-                targetSelector = $('.vitrine-mais-vendidos + ul');
-            break;
-            case 'Posição':
-                targetSelector = $('.pagina-inicial #listagemProdutos > ul').eq(item.position - 1);
-            break; 
-        }
-         
-        if(targetSelector.length == 1 && item.images.length > 0){
-            let columns = 12/item.images.length;
-            let row = $('<div class="row-fluid"></div>');
-            $.each(item.images,function(k2, image){
-                row.append('<div class="span'+ columns+'"><a href="'+ image.link +'"><img src="'+ image.url +'"/></a></div>');
-            });
-            targetSelector.after(row);
-        }
-    })  
-}
-
 theme.worker.insertVideos = {};
 theme.worker.insertVideos.list = [];
 theme.worker.insertVideos.functions = {};
