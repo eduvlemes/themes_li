@@ -1082,7 +1082,7 @@ theme.worker.insertBanners.run = function(){
                 targetSelector = $('.vitrine-lancamento + ul');
                 break;
             case 'Mais Vendidos':
-                targetSelector = $('.vitrine-mais-vendidos + ul');
+                targetSelector = $('.vitrine-mas-vendidos + ul');
             break;
             case 'Posição':
                 targetSelector = $('.pagina-inicial #listagemProdutos > ul').eq(item.position - 1);
