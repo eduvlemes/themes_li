@@ -3282,13 +3282,3 @@ html body.carrinho-checkout .identificacao #formularioLogin .login-data > .contr
 .atributos .atributo-comum ul li.active > a:not(.indisponivel){
     box-shadow: 0px 0px 0px 1.5px rgb(0 0 0) !important;
 }
-
-.theme_aside #theme_filter > div.atributo-cor > ul > li > a{}
-.theme_aside #theme_filter > div.atributo-cor > ul > li > a .color-bg{
-    overflow: hidden;
-    box-shadow: 0 0 3px rgb(0 0 0 / 50%);
-    border-radius: 50%;
-    display: inline-block;
-    vertical-align: middle;
-}
-.theme_aside #theme_filter > div.atributo-cor > ul > li > a span{width:fit-content;display:block}

@@ -318,11 +318,10 @@ theme.build.productFilter = function(template){
             $('body').toggleClass('asideFilter-visible');         
         });
         if($('.coluna .atributo-cor').length > 0 ){
-            $('.coluna .atributo-cor a > span').wrap("<i class='color-bg'></i>")
-            // $('.filtro-coluna .atributo-cor span').each(function(){
-            //     let css = $(this).attr('style').replace('border-color','background-color');
-            //     $(this).attr('style', css);
-            // })
+            $('.filtro-coluna .atributo-cor span').each(function(){
+                let css = $(this).attr('style').replace('border-color','background-color');
+                $(this).attr('style', css);
+            })
         }
         $('.coluna .filtro-coluna').each(function(){
             let filterName = $(this).find('h4.titulo').text().replace('Filtrar por','').replace('Limpar','').trim();
@@ -867,7 +866,6 @@ theme.functions['pagina-categoria'] = function(){
     // }
 };
 theme.functions['pagina-busca'] = theme.functions['pagina-categoria'];
-theme.functions['pagina-marca'] = theme.functions['pagina-categoria'];
 theme.functions['pagina-produto'] = function(){
     $('<div class="conteiner theme-bc"></div>').prependTo('#corpo');
     $('.breadcrumbs').appendTo('.theme-bc');
