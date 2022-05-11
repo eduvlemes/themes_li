@@ -428,60 +428,7 @@ theme.build.account = function(template){
 
 }
 
-
 theme.functions = [];
-theme.functions.customBanners = function(ref){
-    let movie = false;
-    $('.secao-banners .banner.cheio img').each(function(){
-        let alt = $(this).attr('alt');        
-        if(alt.includes('[movie]')){
-            movie = true;
-            let iframeLink = $(this).closest('a').attr('href');
-            let iframe = $('<iframe id="theme_fullMovie"  src="https://www.youtube-nocookie.com/embed/'+ iframeLink +'?'+ (alt.includes('[autoplay]') ? 'autoplay=1&mute=1&' : '') +'" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>');
-            let li = $(this).closest('li');
-            li.find('img').remove();
-            li.find('a').remove();
-            li.append(iframe);     
-            
-            let regExp = /\[proporcao:(.*?)\]/;
-            let match = regExp.exec(alt);
-            console.log(match);
-            if(match[1]){
-                $('#theme_fullMovie').css('height',(window.innerWidth * parseFloat(match[1])) + 'px');
-            }
-            
-            
-        }        
-    });
-    $('.secao-banners .banner.cheio img').each(function(){
-        let alt = $(this).attr('alt');        
-        if(!alt.includes('[mobile]') && theme.isMobile){
-            $(this).closest('li').remove();                        
-        }
-        if(alt.includes('[mobile]') && !theme.isMobile){
-            $(this).closest('li').remove();                        
-        }
-    });
-    $('.secao-banners .banner.cheio img').each(function(){
-        let alt = $(this).attr('alt');
-        if(alt.includes('[vitrine-')){
-            let regExp = /\[vitrine-(.*?)\]/;
-            let match = regExp.exec(alt);
-            if($('.vitrine-' + match[1]).length == 1){
-                if($('#theme_customBanners-' + match[1]).length == 0){
-                    $('.vitrine-' + match[1] + ' + ul').after('<div class="theme_customBanners" id="theme_customBanners-' + match[1] + '"></div>');
-                }
-                $(this).closest('li').appendTo('#theme_customBanners-' + match[1]);               
-            }
-        }else{
-            if(movie && !alt.includes('[movie]')){
-                $(this).closest('li').remove();
-            }
-        }
-    });
-
-    $('.theme_customBanners li').wrap('<div class="item"/>').contents().unwrap();
-}
 theme.functions.createField = function (oObj){
     let field = $('<div class="theme-customInputElement"></div>');    
     field.append('<label>'+oObj.label+'</label>');
@@ -1261,6 +1208,7 @@ theme.worker.insertVideos.run = function(){
         }
     })  
 }
+
 
 $(document).ready(function(){
     theme.worker.insertBanners.match = $('.pagina-inicial').length == 1;

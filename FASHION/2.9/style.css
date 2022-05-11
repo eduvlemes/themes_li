@@ -3298,24 +3298,3 @@ html body.carrinho-checkout .identificacao #formularioLogin .login-data > .contr
     text-align: left;
     line-height: initial
 }
-
-/* 3.0 */
-.theme_customBanners{
-    display: flex;
-    gap: 15px;
-    margin: 2rem 0 1rem 0;
-}
-@media(max-width:990px){
-    .theme_customBanners{
-        flex-direction:column;
-        margin: 1rem 0 0.5rem 0;
-    }
-}
-body:not(.pagina-inicial) .secao-banners .banner.cheio img{
-    width: fit-content;
-    margin: 0 auto;
-}
-
-#theme_fullMovie{
-    width:100%;
-}

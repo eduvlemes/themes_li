@@ -644,8 +644,8 @@ body[class*=" theme_aside"] .theme_aside-shadow{opacity:1;visibility:visible}
 }
 #rodape ul li a{
     color:var(--footer_linkColor);
-    font-size:calc(var(--footer_fontSize) * 0.7);
-    letter-spacing:calc(var(--footer_letterSpacing) * 0.7);
+    font-size:var(--footer_fontSize);
+    letter-spacing:var(--footer_letterSpacing);
     font-weight:400;
     font-family:var(--footer_fontFamily);
     
@@ -1359,3 +1359,5 @@ input[type=number] {
 .listagem .listagem-item .info-produto.theme_emphasis-3 .price_full strong{font-size: calc(var(--listing_fontSize) * 1.2);}
 
 .listagem .preco-produto>div{margin:0}
+
+.listagem .listagem-item{padding:0}
