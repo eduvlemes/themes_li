@@ -3319,3 +3319,32 @@ body:not(.pagina-inicial) .secao-banners .banner.cheio img{
 #theme_fullMovie{
     width:100%;
 }
+
+#theme_categorySlider {margin:1rem -15px 1rem -15px}
+#theme_categorySlider img{margin:0 auto;}
+#theme_categorySlider .info-banner.titulo{
+    display: block;
+    position: relative;
+    background: transparent;
+    color: initial;
+    font-size: 14px;
+    text-transform: initial;
+    text-align: center;
+    left: auto;
+    bottom: auto;
+    top: auto;
+    line-height: initial;
+    font-weight:normal;
+}
+
+@media(max-width:990px){
+    .marcas .slick-slide,
+    #theme_categorySlider .item{margin:0 5px}
+    .marcas{margin-left:-20px!important;margin-right:-20px!important}
+    #theme_categorySlider{margin: 1rem -10px!important;}
+    .marcas{display: block!important;}
+    .marcas img{max-height:60px}
+
+    #theme_categorySlider .info-banner.titulo{font-size:12px;padding-left:0;padding-right:0}
+    
+}

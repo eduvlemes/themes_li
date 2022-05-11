@@ -82,6 +82,38 @@ theme.settings.sliders.brands = {
     autoplaySpeed: 2000,
     prevArrow: theme.settings.sliders.config.prevArrow,
     nextArrow: theme.settings.sliders.config.nextArrow,
+    responsive: [
+        {
+            breakpoint: 600,
+            settings: {
+                slidesToShow: 2,
+                slidesToScroll: 1,
+                arrows : false,
+                centerMode: true
+            }
+        }
+    ]
+}
+
+theme.settings.sliders.categorySlider = {
+    infinite: true,
+    slidesToShow: 6,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    prevArrow: theme.settings.sliders.config.prevArrow,
+    nextArrow: theme.settings.sliders.config.nextArrow,
+    responsive: [
+        {
+            breakpoint: 600,
+            settings: {
+                slidesToShow: 3,
+                slidesToScroll: 1,
+                arrows : false,
+                centerMode: true
+            }
+        }
+    ]
 }
 
 theme.settings.sliders.testimonials = {
@@ -453,6 +485,21 @@ theme.functions.customBanners = function(ref){
             
         }        
     });
+
+    //slider categorias
+    $('<div id="theme_categorySlider"><div class="slides"></div></div>').prependTo('#corpo > .conteiner');
+    $('.secao-banners .banner.cheio img').each(function(){
+        let alt = $(this).attr('alt');                
+        if(alt.includes('[slider-categorias]')){
+            $(this).closest('li').appendTo('#theme_categorySlider > .slides');               
+        }
+    });
+    $('#theme_categorySlider li').wrap('<div class="item"/>').contents().unwrap();
+    $('#theme_categorySlider > .slides').apx_slick(theme.settings.sliders.categorySlider);
+
+
+
+    //daqui para baixo somente os que tem mobile
     $('.secao-banners .banner.cheio img').each(function(){
         let alt = $(this).attr('alt');        
         if(!alt.includes('[mobile]') && theme.isMobile){
