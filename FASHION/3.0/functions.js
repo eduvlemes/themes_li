@@ -486,16 +486,36 @@ theme.functions.customBanners = function(ref){
         }        
     });
 
-    //slider categorias
-    $('<div id="theme_categorySlider"><div class="slides"></div></div>').prependTo('#corpo > .conteiner');
+    //slider categorias    
     $('.secao-banners .banner.cheio img').each(function(){
         let alt = $(this).attr('alt');                
         if(alt.includes('[slider-categorias]')){
+            if($('#theme_categorySlider').length == 0){
+                $('<div id="theme_categorySlider"><div class="slides"></div></div>').prependTo('#corpo > .conteiner');
+            }
             $(this).closest('li').appendTo('#theme_categorySlider > .slides');               
         }
     });
     $('#theme_categorySlider li').wrap('<div class="item"/>').contents().unwrap();
     $('#theme_categorySlider > .slides').apx_slick(theme.settings.sliders.categorySlider);
+
+     //ícones do menu
+    $('.secao-banners .banner.cheio img').each(function(){
+        let alt = $(this).attr('alt');
+        if(alt.includes('[icone-')){
+            let regExp = /\[icone-(.*?)\]/;
+            let target = regExp.exec(alt);
+            let regExp2 = /\[posicao-(.*?)\]/;
+            let position = regExp2.exec(alt);
+            if($('.menu.superior .nivel-um > li > a[title="' + target[1] +'"]').length == 1){
+                let removeAfter = $(this).closest('li');
+                $('.menu.superior .nivel-um > li > a[title="' + target[1] +'"]').closest('li').addClass('theme_icon theme_icon-' + (theme.isMobile ? 'Esquerda' : position[1]));
+                $('.menu.superior .nivel-um > li > a[title="' + target[1] +'"]').prepend('<div class="theme_icon-item"></div>');
+                $(this).appendTo('.menu.superior .nivel-um > li > a[title="' + target[1] +'"] .theme_icon-item');
+                removeAfter.remove();    
+            }
+        }
+    });
 
 
 
