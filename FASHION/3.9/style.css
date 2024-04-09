@@ -3365,5 +3365,6 @@ body:not(.pagina-inicial) .secao-banners .banner.cheio img{
     color:var(--cor-secundaria);
 }
 .avise-me .avise-btn .botao{color:#fff!important}
+#barraNewsletter .componente div.newsletter-cadastro{display: flex;}
 #barraNewsletter .componente input[type="text"]{color:#000!important}
 #barraNewsletter .componente .botao{color:#fff!important}
