@@ -849,26 +849,6 @@ theme.functions.sideCartActions = function(html){
                 if (q.status !== "sucesso") {
                     alert(q.mensagem);
                 } else {
-                    if ("quantidade" === q.tipo) {
-                        D = {
-                            cart_id: q.carrinho_id,
-                            item_id: q.produto_id,
-                            quantity: q.quantidade
-                        };
-                        var x = sendMetrics({
-                            type: "event",
-                            name: "change_quantity",
-                            data: D
-                        });
-                        $(document).trigger("li_change_quantity", [x, D])
-                    } else "remover" === q.tipo && (D = {
-                        cart_id: q.carrinho_id,
-                        item_id: q.produto_id
-                    }, x = sendMetrics({
-                        type: "event",
-                        name: "remove_from_cart",
-                        data: D
-                    }), $(document).trigger("li_remove_from_cart", [x, D]));
                     $("#theme_sideCart-content").load("/carrinho/mini", function() {
                         theme.functions.sideCart()
                     })
@@ -889,33 +869,6 @@ theme.functions.sideCartActions = function(html){
         }else{
             theme.functions.sideCartToggle();
         }
-
-        let carrinho_id = sessionStorage.getItem('carrinho_id');
-        let carrinho_minicart = sessionStorage.getItem(`carrinho_minicart`);
-        
-        if(carrinho_id && carrinho_minicart){
-            let cart = {
-                currency: 'BRL',
-                id: carrinho_id,
-                value: JSON.parse(carrinho_minicart).totals.items,
-                coupon: '',
-                items: JSON.parse(carrinho_minicart).items.map(function(item) {
-                    return {
-                      item_id: item.id.toString(),
-                      item_sku: item.sku,
-                      item_name: item.name,
-                      price: item.price.sellingPrice,
-                      quantity: item.quantity
-                    }
-                  })
-            };
-            var eventID = sendMetrics({
-                type: 'pageview',
-                name: 'view_cart',
-                data: cart
-            });
-            $(document).trigger('li_view_cart', [eventID, cart]);            
-        } 
     })
 
     $('body').on('click','#theme_sideCart [for="usarCupom"]',function(){
@@ -936,23 +889,6 @@ theme.functions.sideCartSet = function(){
             if (p.status !== "sucesso") {
                 alert(p.mensagem);
             } else {
-                let D = { 
-                    id: p.carrinho_id ,
-                    items: [{
-                        item_id : p.produto.id,
-                        item_sku: p.produto.sku,
-                        item_name: p.produto.nome,
-                        price: p.produto.preco,
-                        quantity: p.produto.quantidade
-                    }]
-                };
-                var x = sendMetrics({
-                    type: "event",
-                    name: "add_to_cart",
-                    data: D
-                });
-                sessionStorage.setItem('carrinho_id',p.carrinho_id);
-                $(document).trigger("li_add_to_cart", [x, D]);
                 $("#theme_sideCart-content").load("/carrinho/mini", function() {
                     theme.functions.sideCart()
                 })
@@ -963,10 +899,11 @@ theme.functions.sideCartSet = function(){
             n.text(previousText).removeClass("loading");
         })
     });
-    
+    //$('body').append('<div id="theme_sideCart-shadow"></div><div id="theme_sideCart"><div id="theme_sideCart-header"><button type="button" onclick="theme.functions.sideCartToggle()">'+ theme.icon.sideCartClose +'</button><span>'+ theme.lang.sideCartTitle +'</span></div><div id="theme_sideCart-content"></div><div id="theme_sideCart-footer"><a href="/carrinho/index" class="botao">Finalizar Compra</div></div></div>');    
     $('body').append('<div id="theme_sideCart" class="theme_aside right"><div class="theme_aside-header" id="theme_sideCart-header"><button type="button" onclick="theme.functions.sideCartToggle()">'+ theme.icon.sideCartClose +'</button><span>'+ theme.lang.sideCartTitle +'</span></div><div id="theme_sideCart-content"></div><div id="theme_sideCart-footer"><a href="/carrinho/index" class="botao principal botao-comprar">Finalizar Compra</div></div></div>');    
 }
 theme.functions.sideCart = function(){
+    //$('#theme_sideCart-content').html(html);
     $('body').addClass('sideCart-visible');  
     theme.functions.sideCartScroll();  
 }

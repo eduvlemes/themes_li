@@ -1,0 +1,378 @@
+<html>
+  <head>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <body>
+    <script>
+      const editorConfig = {        
+        pages: { text: 'Páginas', fieldType: 'text', required: null },
+        homepage: { text: 'Página Inicial', fieldType: 'text', required: null },
+        banners: { text: 'Banners', fieldType: 'text', required: null },
+        imageDesktop: { text: 'Imagem Desktop', fieldType: 'file', required: null },
+        imageMobile: { text: 'Imagem Mobile', fieldType: 'file', required: null },
+        link: { text: 'Link', fieldType: 'url', required: null },
+        imageWithText: { text: 'Imagem com Texto', fieldType: 'file', required: null },
+        title: { text: 'Título', fieldType: 'text', required: null },
+        subtitle: { text: 'Subtítulo', fieldType: 'text', required: null },
+        image: { text: 'Imagem', fieldType: 'file', required: null },
+        buttonText: { text: 'Texto do Botão', fieldType: 'text', required: null },
+        buttonLink: { text: 'Link do Botão', fieldType: 'url', required: null },
+        bannersGrid: { text: 'Banners em Grade', fieldType: 'text', required: null },
+        isSlider: { text: 'É um Slider', fieldType: 'text', required: null },
+        list: { text: 'Lista', fieldType: 'text', required: null },
+        description: { text: 'Descrição', fieldType: 'textarea', required: null },
+        textColor: { text: 'Cor do Texto', fieldType: 'color', required: null },
+        buttonColor: { text: 'Cor do Texto do Botão', fieldType: 'color', required: null },
+        buttonBackground: { text: 'Cor de Fundo do Botão', fieldType: 'color', required: null },
+        buttonBorder: { text: 'Borda do Botão', fieldType: 'text', required: null },
+        iconSlider: { text: 'Slider de Ícones', fieldType: 'text', required: null },
+        bannerTitle: { text: 'Título do Banner', fieldType: 'text', required: null },
+        config: { text: 'Configurações', fieldType: 'text', required: null }
+      };
+
+
+
+
+      const theme = {
+      pages:{
+        homepage: {
+          banners: [
+            {
+              imageDesktop: 'https://demo-tema-glamour.lojaintegrada.com.br/assets/banner1_desktop.jpg',
+              imageMobile: 'https://demo-tema-glamour.lojaintegrada.com.br/assets/banner1_mobile.jpg',
+              link: '/produtos/novidades',
+            },
+            {
+              imageDesktop: 'https://demo-tema-glamour.lojaintegrada.com.br/assets/banner2_desktop.jpg',
+              imageMobile: 'https://demo-tema-glamour.lojaintegrada.com.br/assets/banner2_mobile.jpg',
+              link: '/promocoes',
+            },
+          ],
+          imageWithText: {
+            title: 'Novo Título',
+            subtitle: 'Novo subtítulo',
+            image: 'https://demo-tema-glamour.lojaintegrada.com.br/assets/banner1.jpg',
+            buttonText: 'Clique aqui',
+            buttonLink: '/pagina-de-destino',
+          },
+          bannersGrid: [
+            {
+              title: 'Título do Grid',
+              subtitle: 'Subtítulo do Grid',
+              isSlider: true,  // Define se será um slider ou não
+              list: [
+                {
+                  imageDesktop: 'https://demo-tema-glamour.lojaintegrada.com.br/assets/banner1.jpg',
+                  imageMobile: 'https://demo-tema-glamour.lojaintegrada.com.br/assets/banner1.jpg',
+                  link: '/banner1',
+                  title: 'Banner 1',
+                  description: 'Banner 1',
+                  buttonText:"Comprar",
+                  textColor:"#FFFFFF",
+                  buttonColor:"#C19A6B",
+                  buttonBackground:"#FFFFFF",
+                  buttonBorder:"#C19A6B",
+                },
+                {
+                  image: 'https://demo-tema-glamour.lojaintegrada.com.br/assets/banner2.jpg',
+                  link: '/banner2',
+                  bannerTitle: 'Banner 2',
+                },
+              ],
+            },
+          ],
+          iconSlider: [
+            {
+              title: 'Título do Slider',
+              subtitle: 'Subtítulo do Slider',
+              isSlider: true,  // Define se será um slider ou não
+              list: [
+                {
+                  image: 'https://demo-tema-glamour.lojaintegrada.com.br/assets/banner1.jpg',
+                  link: '/banner1',
+                  bannerTitle: 'Banner 1',
+                },
+                {
+                  image: 'https://demo-tema-glamour.lojaintegrada.com.br/assets/banner2.jpg',
+                  link: '/banner2',
+                  bannerTitle: 'Banner 2',
+                },
+              ],
+            },
+          ],
+        },
+      },
+      config:{  
+        colors: {
+          primary: '#C19A6B', // Cor predominante do tema
+          secondary: '#FFFFFF', // Cor secundária utilizada
+          background: '#F5F5F5', // Cor de fundo da loja
+          text: '#333333', // Cor do texto principal
+        },
+        fonts: {
+          desktop:{
+            menu:{
+              fontSize: '16px',
+              fontFamily: 'Arial, sans-serif',
+              letterSpacing: '0.5px',
+              fontWeight: 'normal',
+            },
+            title:{
+              fontSize: '16px',
+              fontFamily: 'Arial, sans-serif',
+              letterSpacing: '0.5px',
+              fontWeight: 'normal',
+            },
+            subtitle:{
+              fontSize: '16px',
+              fontFamily: 'Arial, sans-serif',
+              letterSpacing: '0.5px',
+              fontWeight: 'normal',
+            },
+            heading:{
+              fontSize: '16px',
+              fontFamily: 'Arial, sans-serif',
+              letterSpacing: '0.5px',
+              fontWeight: 'normal',
+            },
+            focus:{
+              fontSize: '16px',
+              fontFamily: 'Arial, sans-serif',
+              letterSpacing: '0.5px',
+              fontWeight: 'normal',
+            }
+          },
+          mobile:{
+            menu:{
+              fontSize: '16px',
+              fontFamily: 'Arial, sans-serif',
+              letterSpacing: '0.5px',
+              fontWeight: 'normal',
+            },
+            title:{
+              fontSize: '16px',
+              fontFamily: 'Arial, sans-serif',
+              letterSpacing: '0.5px',
+              fontWeight: 'normal',
+            },
+            subtitle:{
+              fontSize: '16px',
+              fontFamily: 'Arial, sans-serif',
+              letterSpacing: '0.5px',
+              fontWeight: 'normal',
+            },
+            heading:{
+              fontSize: '16px',
+              fontFamily: 'Arial, sans-serif',
+              letterSpacing: '0.5px',
+              fontWeight: 'normal',
+            },
+            focus:{
+              fontSize: '16px',
+              fontFamily: 'Arial, sans-serif',
+              letterSpacing: '0.5px',
+              fontWeight: 'normal',
+            }
+          },
+          
+        },
+        layout: {
+          header: {
+            backgroundColor: '#C19A6B',
+            logo: {
+              desktop: {
+                src: 'https://demo-tema-glamour.lojaintegrada.com.br/assets/logo_desktop.png',
+                alt: 'Logo da Loja - Versão Desktop',
+              },
+              mobile: {
+                src: 'https://demo-tema-glamour.lojaintegrada.com.br/assets/logo_mobile.png',
+                alt: 'Logo da Loja - Versão Mobile',
+              },
+            },
+            menu: {
+              items: [
+                {
+                  text: 'Início',
+                  iconSrc: 'https://demo-tema-glamour.lojaintegrada.com.br/assets/icons/home.png',
+                  url: '/',
+                  children: [],
+                },
+                {
+                  text: 'Produtos',
+                  iconSrc: 'https://demo-tema-glamour.lojaintegrada.com.br/assets/icons/products.png',
+                  url: '/produtos',
+                  children: [
+                    {
+                      text: 'Novidades',
+                      iconSrc: 'https://demo-tema-glamour.lojaintegrada.com.br/assets/icons/new.png',
+                      url: '/produtos/novidades',
+                      children: [],
+                    },
+                    {
+                      text: 'Promoções',
+                      iconSrc: 'https://demo-tema-glamour.lojaintegrada.com.br/assets/icons/sale.png',
+                      url: '/produtos/promocoes',
+                      children: [],
+                    },
+                  ],
+                },
+                {
+                  text: 'Sobre',
+                  iconSrc: 'https://demo-tema-glamour.lojaintegrada.com.br/assets/icons/about.png',
+                  url: '/sobre',
+                  children: [],
+                },
+                {
+                  text: 'Contato',
+                  iconSrc: 'https://demo-tema-glamour.lojaintegrada.com.br/assets/icons/contact.png',
+                  url: '/contato',
+                  children: [],
+                },
+              ],
+            },
+          },
+          footer: {
+            backgroundColor: '#333333',
+            textColor: '#FFFFFF',
+            menus: [
+              {
+                text: 'Institucional',
+                description: 'Saiba mais sobre nossa empresa e políticas.',
+                children: [
+                  {
+                    text: 'Sobre Nós',
+                    url: '/sobre-nos',
+                  },
+                  {
+                    text: 'Política de Privacidade',
+                    url: '/politica-de-privacidade',
+                  },
+                  {
+                    text: 'Termos de Uso',
+                    url: '/termos-de-uso',
+                  },
+                ],
+              },
+              {
+                text: 'Atendimento',
+                description: 'Entre em contato conosco.',
+                children: [
+                  {
+                    text: 'Fale Conosco',
+                    url: '/fale-conosco',
+                  },
+                  {
+                    text: 'Dúvidas Frequentes',
+                    url: '/duvidas-frequentes',
+                  },
+                  {
+                    text: 'Suporte Técnico',
+                    url: '/suporte-tecnico',
+                  },
+                ],
+              },
+            ],
+          },
+          productSlider: {
+            items: [
+              {
+                image: 'https://demo-tema-glamour.lojaintegrada.com.br/assets/produto1.jpg',
+                name: 'Produto 1',
+                price: 'R$ 99,90',
+                link: '/produto1',
+              },
+              {
+                image: 'https://demo-tema-glamour.lojaintegrada.com.br/assets/produto2.jpg',
+                name: 'Produto 2',
+                price: 'R$ 149,90',
+                link: '/produto2',
+              },
+              // Adicione mais produtos conforme necessário
+            ],
+            display:{
+              itemsPerRow: 4,
+              hoverEffect: 'zoom',
+              arrowIcon: 'https://demo-tema-glamour.lojaintegrada.com.br/assets/arrow.svg',
+              transitionEffect: 'slide', // Efeito de transição entre produtos
+              autoplay: true, // Ativar rotação automática
+              autoplaySpeed: '3s', // Intervalo entre transições automáticas
+            }     
+          },
+          productDisplay: {
+            itemsPerRow: 4,
+            hoverEffect: 'zoom',
+          },
+        },
+        buttons: {
+          primary: {
+            backgroundColor: '#C19A6B',
+            textColor: '#FFFFFF',
+            borderRadius: '5px',
+          },
+          secondary: {
+            backgroundColor: '#FFFFFF',
+            textColor: '#C19A6B',
+            border: '1px solid #C19A6B',
+            borderRadius: '5px',
+          },
+        },
+        forms: {
+          input: {
+            borderColor: '#CCCCCC',
+            focusBorderColor: '#C19A6B',
+            borderRadius: '3px',
+          },
+          button: {
+            backgroundColor: '#C19A6B',
+            textColor: '#FFFFFF',
+            borderRadius: '5px',
+          },
+        },
+      },
+    };
+
+
+    
+    </script>
+    <div id="app">
+      <div id="sidebar"></div>
+      <div id="preview"></div>
+    </div>
+    <script>
+      //math random without decimal
+      function randomIntFromInterval(min, max) { // min and max included 
+        return Math.floor(Math.random() * (max - min + 1) + min)
+      }
+
+
+
+      function generateEditorDOM(oObj, parent){
+        $.each(oObj, function(key, value){
+          console.log(key, value);
+          if(typeof value === 'object'){
+            let appendTo = parent ? $(`#${parent}`) : $('#sidebar');
+            let key_ = key + '_' + Math.floor(Math.random() * (999999999999 - 1 + 1) + 1);
+            appendTo.append(`<div id="${key_}"><h2>${editorConfig[key]?.text || key}</h2></div>`);
+            $.each(value, function(subKey, subValue){
+              let key_sub = key + '_' + Math.floor(Math.random() * (999999999999 - 1 + 1) + 1);
+              $(`#${key_}`).append(`<div><a href="javascript:void(0)" onclick="openEditor('${key_sub}')">${typeof subKey === 'number' ? '#' + (subKey + 1) : (editorConfig[subKey]?.text || subKey)}</a><div id=${key_sub}></div></div>`);              
+              console.log(key_sub,subValue) 
+              if(typeof subValue === 'object'){
+                generateEditorDOM(subValue, key_sub);
+              }
+            });
+          }else{
+            //append to parent but search in editor config for the text, fieldtype and description of the field
+            let appendTo = parent ? $(`#${parent}`) : $('#sidebar');
+            let key_ = key + '_' + Math.floor(Math.random() * (999999999999 - 1 + 1) + 1);
+            appendTo.append(`<div id="${key_}"><strong>${editorConfig[key]?.text || key}</strong></div>`);
+            $(`#${key_}`).append(`<input type="${editorConfig[key]?.fieldType || 'text'}" placeholder="${editorConfig[key]?.text || key}" value="${value}">`);
+          }
+        });
+      }
+
+      generateEditorDOM(theme);
+    </script>
+  </body>
+</html>
