@@ -2,7 +2,7 @@
 
 function triggerCDN(){
     console.log('IS_STORE_ASYNC',window.IS_STORE_ASYNC);
-    theme.isLogged = $.cookie('LI-UserData') && $.cookie('LI-UserData').includes(`%7B%22logged%22%3Afalse%2C%22i`) ? false : true;
+    theme.isLogged = $.cookie('LI-isUserLogged') === "true" ? true : false;
     sessionStorage.setItem('cdnTriggered',true)
 };
 

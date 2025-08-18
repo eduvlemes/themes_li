@@ -1,6 +1,6 @@
 <template>
   <div>
-    <header class="p-3 mb-3 border-bottom">
+    <header class="p-3 border-bottom">
       <div class="container-fluid">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
           <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
@@ -23,7 +23,7 @@
         </div>
       </div>
     </header>
-    <main class="p-4">
+    <main>
       <div class="container-fluid">
         <router-view></router-view>
       </div>

@@ -3427,6 +3427,3 @@ body:not(.pagina-inicial) .secao-banners .banner.cheio img{
     justify-content: space-between;
     align-items: center;
 }
-
-/* 4.6 */
-.pagina-produto .secao-principal > .produto > .row-fluid:first-child .acoes-produto[data-variacao-id=""].hide{display:none!important}

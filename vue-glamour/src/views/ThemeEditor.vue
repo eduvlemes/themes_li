@@ -10,10 +10,18 @@
         </ul>
       </div>
       <div class="mt-4">
+        <h2 class="mb-3 h5">Estrutura</h2>
+        <ul class="list-group">
+          <li class="list-group-item" v-for="(value, key) in theme.layout" :key="key">
+            <a data-bs-toggle="offcanvas" href="#expandedPanel" @click="expandPanel(key,'layout')">{{ editorConfig[key]?.text || '_' + key }}</a>
+          </li>
+        </ul>
+      </div>
+      <div class="mt-4">
         <h2 class="mb-3 h5">Configurações</h2>
         <ul class="list-group">
           <li class="list-group-item" v-for="(value, key) in theme.config" :key="key">
-            <a data-bs-toggle="offcanvas" href="#expandedPanel" @click="expandPanel(key,'fields')">{{ editorConfig[key]?.text || '_' + key }}</a>
+            <a data-bs-toggle="offcanvas" href="#expandedPanel" @click="expandPanel(key,'config')">{{ editorConfig[key]?.text || '_' + key }}</a>
           </li>
         </ul>
       </div>
@@ -23,7 +31,7 @@
             <h5 class="offcanvas-title" id="offcanvasLabel">{{ editorConfig[expandedKey]?.text || expandedKey }}</h5>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
           </div>
-          <div class="offcanvas-body">
+          <div class="offcanvas-body" v-if="expandedSection != null">
             <div v-if="expandedSection == 'pages'">          
                 <a href="#expandedOptionPanel" data-bs-toggle="offcanvas" class="block d-block" v-for="(field, fieldKey) in theme.pages[expandedKey]" :key="fieldKey" @click="expandOptionPanel(fieldKey, 'fields')">
                   <h3 class="h6 m-0">{{ editorConfig[fieldKey]?.text || fieldKey}}</h3>
@@ -31,32 +39,43 @@
             </div>
             <div v-else>
               
-              <div v-for="(field, fieldKey) in theme.config[expandedKey]" :key="fieldKey" class="form-group mb-4">
-                <div v-if="typeof field === 'object'">
-                  
-                  <div v-for="(field_, fieldKey_) in theme.config[expandedKey][fieldKey]" :key="fieldKey_">
-                    <strong :for="'input-' + fieldKey_">{{ editorConfig[fieldKey_]?.text || fieldKey_}}</strong>
-                      
-                    <div v-if="typeof field_ === 'object'">
-                      <strong>{{ editorConfig[fieldKey]?.text || fieldKey}}</strong>
-                      <div v-for="(field__, fieldKey__) in theme.config[expandedKey][fieldKey][fieldKey_]" :key="fieldKey__">
-                        <label :for="'input-' + fieldKey__">{{ editorConfig[fieldKey__]?.text || fieldKey__}}</label>
-                        <input v-if="['color','text','number','url'].includes(fields[fieldKey__]?.type)" :type="fields[fieldKey__].type" class="form-control" :id="'input-' + fieldKey__" :value="theme.config[expandedKey][fieldKey][fieldKey__]" :required="fields[fieldKey__].required">
-                        <textarea v-if="fields[fieldKey__]?.type == 'textarea'" class="form-control" :id="'input-' + fieldKey__" :value="theme.config[expandedKey][fieldKey][fieldKey__]" :required="fields[fieldKey__].required"></textarea>
-                        <input v-if="fields[fieldKey__]?.type == 'fileUpload'" type="file" class="form-control" :id="'input-' + fieldKey__" :required="fields[fieldKey__].required">         
-                      </div>
-                    </div>  
-                    <div v-else>
-                      <input v-if="['color','text','number','url'].includes(fields[fieldKey_]?.type)" :type="fields[fieldKey_].type" class="form-control" :id="'input-' + fieldKey_" :value="theme.config[expandedKey][fieldKey][fieldKey_]" :required="fields[fieldKey_].required">
-                      <textarea v-if="fields[fieldKey_]?.type == 'textarea'" class="form-control" :id="'input-' + fieldKey_" :value="theme.config[expandedKey][fieldKey][fieldKey_]" :required="fields[fieldKey_].required"></textarea>
-                      <input v-if="fields[fieldKey_]?.type == 'fileUpload'" type="file" class="form-control" :id="'input-' + fieldKey_" :required="fields[fieldKey_].required">    
-                    </div>              
+              <div v-for="(field, fieldKey) in theme[expandedSection][expandedKey]" :key="fieldKey" class="form-group mb-4 nv__1">
+                <div v-if="typeof field === 'object'" class="group__1">
+                  <strong>{{ editorConfig[fieldKey]?.text || fieldKey}}</strong>
+                  <div class="group__1__exp">
+                    <div v-for="(field_, fieldKey_) in theme[expandedSection][expandedKey][fieldKey]" :key="fieldKey_" :class="'group__2' +  (typeof field_ === 'object' ? ' inner-groups' : '')">
+                      <strong :for="'input-' + fieldKey_">{{ editorConfig[fieldKey_]?.text || fieldKey_}}</strong>
+                        
+                      <div v-if="typeof field_ === 'object'" class="group__3">                        
+                        <div v-for="(field__, fieldKey__) in theme[expandedSection][expandedKey][fieldKey][fieldKey_]" :key="fieldKey__" class="group__4 input-block">
+                          <label :for="'input-' + fieldKey__">{{ editorConfig[fieldKey__]?.text || fieldKey__}}</label>
+                          <input v-if="['color','text','url'].includes(fields[fieldKey__]?.type)" :type="fields[fieldKey__].type" class="form-control" :id="'input-' + fieldKey__" :value="theme[expandedSection][expandedKey][fieldKey][fieldKey__]" :required="fields[fieldKey__].required">
+                          <input v-if="['range','number'].includes(fields[fieldKey__]?.type)" :type="fields[fieldKey__].type" class="form-control" :id="'input-' + fieldKey__" :value="theme[expandedSection][expandedKey][fieldKey][fieldKey__]" :min="fields[fieldKey__].min" :max="fields[fieldKey__].max" :step="fields[fieldKey__].step" :required="fields[fieldKey__].required">
+                          <select v-if="['select'].includes(fields[fieldKey__]?.type)" class="form-control" :id="'input-' + fieldKey__" :value="theme[expandedSection][expandedKey][fieldKey][fieldKey__]" :required="fields[fieldKey__].required">
+                            <option v-for="option in fields[fieldKey__].options" :value="option.value" :key="option.label">{{option.label}}</option>
+                          </select>
+                          
+                          <textarea v-if="fields[fieldKey__]?.type == 'textarea'" class="form-control" :id="'input-' + fieldKey__" :value="theme[expandedSection][expandedKey][fieldKey][fieldKey__]" :required="fields[fieldKey__].required"></textarea>
+                          <input v-if="fields[fieldKey__]?.type == 'fileUpload'" type="file" class="form-control" :id="'input-' + fieldKey__" :required="fields[fieldKey__].required">         
+                        </div>
+                      </div>  
+                      <div v-else>
+                        <input v-if="['color','text','url'].includes(fields[fieldKey_]?.type)" :type="fields[fieldKey_].type" class="form-control" :id="'input-' + fieldKey_" :value="theme[expandedSection][expandedKey][fieldKey][fieldKey_]" :required="fields[fieldKey_].required">
+                        <textarea v-if="fields[fieldKey_]?.type == 'textarea'" class="form-control" :id="'input-' + fieldKey_" :value="theme[expandedSection][expandedKey][fieldKey][fieldKey_]" :required="fields[fieldKey_].required"></textarea>
+                        <input v-if="fields[fieldKey_]?.type == 'fileUpload'" type="file" class="form-control" :id="'input-' + fieldKey_" :required="fields[fieldKey_].required">   
+                        
+                        <input v-if="['range','number'].includes(fields[fieldKey_]?.type)" :type="fields[fieldKey_].type" class="form-control" :id="'input-' + fieldKey_" :value="theme[expandedSection][expandedKey][fieldKey][fieldKey_]" :min="fields[fieldKey_].min" :max="fields[fieldKey_].max" :step="fields[fieldKey_].step" :required="fields[fieldKey_].required">
+                          <select v-if="['select'].includes(fields[fieldKey_]?.type)" class="form-control" :id="'input-' + fieldKey_" :value="theme[expandedSection][expandedKey][fieldKey][fieldKey_]" :required="fields[fieldKey_].required">
+                            <option v-for="option in fields[fieldKey_].options" :value="option.value" :key="option.label">{{option.label}}</option>
+                          </select>
+                      </div>              
+                    </div>
                   </div>
                 </div>
                 <div v-else>
                   <label :for="'input-' + fieldKey">{{ editorConfig[fieldKey]?.text || fieldKey}}</label>
-                  <input v-if="['color','text','number','url'].includes(fields[fieldKey]?.type)" :type="fields[fieldKey].type" class="form-control" :id="'input-' + fieldKey" :value="theme.config[expandedKey][fieldKey]" :required="fields[fieldKey].required">
-                  <textarea v-if="fields[fieldKey]?.type == 'textarea'" class="form-control" :id="'input-' + fieldKey" :value="theme.config[expandedKey][fieldKey]" :required="fields[fieldKey].required"></textarea>
+                  <input v-if="['color','text','number','url'].includes(fields[fieldKey]?.type)" :type="fields[fieldKey].type" class="form-control" :id="'input-' + fieldKey" :value="theme[expandedSection][expandedKey][fieldKey]" :required="fields[fieldKey].required">
+                  <textarea v-if="fields[fieldKey]?.type == 'textarea'" class="form-control" :id="'input-' + fieldKey" :value="theme[expandedSection][expandedKey][fieldKey]" :required="fields[fieldKey].required"></textarea>
                   <input v-if="fields[fieldKey]?.type == 'fileUpload'" type="file" class="form-control" :id="'input-' + fieldKey" :required="fields[fieldKey].required">
                   <small v-if="field != field" id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                 </div>
@@ -125,7 +144,27 @@
             config: { text: 'Configurações', fieldType: 'text', required: null },
             fonts: { text: 'Fontes', fieldType: 'text', required: null },
             desktop: { text: 'Computadores', fieldType: 'text', required: null },
-            mobile: { text: 'Tablets e Celulares', fieldType: 'text', required: null }
+            mobile: { text: 'Tablets e Celulares', fieldType: 'text', required: null },
+            primaryColor: { text: 'Cor Principal', fieldType: 'text', required: null },
+            secondaryColor: { text: 'Cor Secundária', fieldType: 'text', required: null },
+            backgroundColor: { text: 'Cor de Fundo', fieldType: 'text', required: null },
+            menu: { text: 'Menu', fieldType: 'text', required: null },
+            fontSize: { text: 'Tamanho da Fonte (px)', fieldType: 'text', required: null },
+            fontFamily: { text: 'Família da Fonte', fieldType: 'text', required: null },
+            letterSpacing: { text: 'Espaçamento (px)', fieldType: 'text', required: null },
+            fontWeight: { text: 'Peso da Fonte', fieldType: 'text', required: null },
+            buttons: { text: 'Botões', fieldType: 'text', required: null },
+            borderRadius: { text: 'Cantos arredondados?', fieldType: 'text', required: null },
+            borderColor: { text: 'Cor da Borda', fieldType: 'text', required: null },
+            primary: { text: 'Principal', fieldType: 'text', required: null },
+            secondary: { text: 'Secundário', fieldType: 'text', required: null },
+            heading: { text: 'Títulos', fieldType: 'text', required: null },
+            header: { text: 'Cabeçalho', fieldType: 'text', required: null },
+            footer: { text: 'Rodapé', fieldType: 'text', required: null },
+            productSlider: { text: 'Carrossel de Produtos', fieldType: 'text', required: null },
+            productDisplay: { text: 'Bloco de Produto', fieldType: 'text', required: null },
+           
+            
           },
           fields:{
             imageDesktop: {type:'fileUpload',required:false},
@@ -135,6 +174,27 @@
             secondaryColor: {type:'color',required:false},
             backgroundColor: {type:'color',required:false},
             textColor: {type:'color',required:false},
+            fontSize: {type:'number',required:false, min:6, max:46, step:1},
+            fontFamily: {type:'select',required:false, options:[
+              {label:'Arial', value:'Arial'},
+              {label:'Verdana', value:'Verdana'},
+              {label:'Tahoma', value:'Tahoma'},
+            ]},
+            letterSpacing: {type:'number',required:false, min:0, max:10, step:.5},
+            fontWeight: {type:'select',required:false, options:[
+              {label:'300', value:'300'},
+              {label:'400', value:'400'},
+              {label:'500', value:'500'},
+              {label:'600', value:'600'},
+              {label:'700', value:'700'},
+              {label:'800', value:'800'},
+            ]},
+            borderRadius: {type:'select',required:false, options:[
+              {label:'Não', value:'0px'},
+              {label:'Levemente Arredondados', value:'5px'},
+              {label:'Arredondados', value:'50px'},
+            ]},
+            borderColor: {type:'color',required:false},
           },
           blocks : {
             banners:{
@@ -289,24 +349,53 @@
                 },
                 
               },
-              layout: {
-                header: {
+              
+              buttons: {
+                primary: {
                   backgroundColor: '#C19A6B',
+                  textColor: '#FFFFFF',
+                  borderRadius: '5px',
+                },
+                secondary: {
+                  backgroundColor: '#FFFFFF',
+                  textColor: '#C19A6B',
+                  borderColor: '#C19A6B',
+                  borderRadius: '5px',
+                },
+              },
+              forms: {
+                input: {
+                  borderColor: '#CCCCCC',
+                  focusBorderColor: '#C19A6B',
+                  borderRadius: '3px',
+                },
+                button: {
+                  backgroundColor: '#C19A6B',
+                  textColor: '#FFFFFF',
+                  borderRadius: '5px',
+                },
+              },
+            },
+            layout: {
+                header: {
+                  backgroundColor: '#fff',
+                  textColor: '#000',
+                  iconsColor: '#000',
                   logo: {
-                    desktop: {
-                      src: 'https://demo-tema-glamour.lojaintegrada.com.br/assets/logo_desktop.png',
-                      alt: 'Logo da Loja - Versão Desktop',
-                    },
-                    mobile: {
-                      src: 'https://demo-tema-glamour.lojaintegrada.com.br/assets/logo_mobile.png',
-                      alt: 'Logo da Loja - Versão Mobile',
-                    },
+                    imageDesktop: 'https://demo-tema-glamour.lojaintegrada.com.br/assets/logo_desktop.png',
+                    imageMobile: 'https://demo-tema-glamour.lojaintegrada.com.br/assets/logo_mobile.png',
                   },
                   menu: {
+                    backgroundColor: '#fff',
+                    textColor: '#000',
+                    focusBackgroundColor: '#000',
+                    focusTextColor: '#fff',
                     items: [
                       {
                         text: 'Início',
                         iconSrc: 'https://demo-tema-glamour.lojaintegrada.com.br/assets/icons/home.png',
+                        dropdownImage: 'https://demo-tema-glamour.lojaintegrada.com.br/assets/icons/home.png',
+                        dropdownUrl: '/',
                         url: '/',
                         children: [],
                       },
@@ -416,32 +505,6 @@
                   hoverEffect: 'zoom',
                 },
               },
-              buttons: {
-                primary: {
-                  backgroundColor: '#C19A6B',
-                  textColor: '#FFFFFF',
-                  borderRadius: '5px',
-                },
-                secondary: {
-                  backgroundColor: '#FFFFFF',
-                  textColor: '#C19A6B',
-                  border: '1px solid #C19A6B',
-                  borderRadius: '5px',
-                },
-              },
-              forms: {
-                input: {
-                  borderColor: '#CCCCCC',
-                  focusBorderColor: '#C19A6B',
-                  borderRadius: '3px',
-                },
-                button: {
-                  backgroundColor: '#C19A6B',
-                  textColor: '#FFFFFF',
-                  borderRadius: '5px',
-                },
-              },
-            }
           },
           expandedKey:null,
           isExpandedPanel: false,
@@ -497,7 +560,7 @@
 <style>
 aside{
   width: 320px!important;
-  height: 100dvh;
+  height: calc(100dvh - 73px);
   overflow-y:auto
 }
 
@@ -512,5 +575,105 @@ aside{
   background-color: #f2f2f2;
   cursor: pointer;
 }
+.expandedPanel{
+  height: -webkit-fill-available;
+  display: flex;
+  flex-direction: column;
+}
+.expandedPanel .offcanvas-body{height: -webkit-fill-available;overflow-y:auto}
 
+
+.bg-light{background:#f6f9fb}
+.list-group-item{
+  background:#fff;
+  border: 1px solid #e4eaeb;
+  padding: 1rem 1.5rem;
+  font-style: normal;
+  font-weight: 500;
+  cursor: pointer;
+  
+}
+.list-group-item:hover{
+  background: #f6f9fb;
+}
+.list-group-item > a{
+  color: #000;
+  font-size: 14px;
+  text-decoration: none;
+}
+.group__1{}
+.group__1 > strong{
+  text-transform: uppercase;
+  font-size: 14px;
+  color: #666;
+  position: sticky;
+  top: -1rem;
+  background: #fff;
+  width: 100%;
+  display: block;
+  padding: 1rem 0;
+}
+.group__1 > .group__1__exp{}
+
+.group__1 > .group__1__exp .group__2.inner-groups > strong{
+  text-transform: uppercase;
+  font-size: 12px;
+  background: #fff;
+  color: #666;
+  width: -webkit-fill-available;
+  display: block;
+  margin: -1rem -1rem 1rem -1rem;
+  border-radius: .5rem .5rem 0 0;
+  padding: 1rem;
+  border-bottom: 1px solid #e4eaeb;
+}
+
+.group__2.inner-groups{
+  padding: 1rem;
+  background: #f6f9fb;
+  margin: 0 0 1rem 0;
+  border: 1px solid #e4eaeb;
+  border-radius: .5rem;
+}
+
+label[for^="input-"]{
+  text-transform: initial;
+  font-size: 14px;
+  color: #000;
+  margin-bottom: 5px;
+}
+
+.input-block:not(:last-child){margin: .75rem 0;}
+
+#expandedPanel.offcanvas{
+  background: #f6f9fb;
+}
+#expandedPanel > .expandedPanel{
+  background: #fff;
+  margin: 1rem;
+  border: 1px solid #e4eaeb;
+  border-radius: .5rem;
+}
+#expandedPanel .expanded .offcanvas-header .offcanvas-title{
+  text-transform: uppercase;
+  font-size: 14px;
+}
+#expandedPanel .expanded .offcanvas-header  .btn-close{font-size: 12px;}
+
+input[type="color"]{
+  width: 30px;
+  padding: 0;
+  height: 30px;
+  border-radius: 0;
+}
+aside > div > h2{
+  position: sticky;
+  top: -1rem;
+  z-index: 2;
+  background: #f8f9fa;
+  margin: -2rem -1rem 1rem -1rem !important;
+  display: block;
+  padding: 1rem;
+}
+aside > div > h2 + .list-group{margin-bottom: 3rem;}
 </style>
