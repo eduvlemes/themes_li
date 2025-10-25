@@ -59,7 +59,8 @@ theme.functions.loadGoogleFonts = function(fontName,fontWeight){
 theme.config = {
     header: {
         structure: {
-            type: "1",
+            desktop:{
+type: "1",
             fixed: "",
             icon_search: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19.4697 20.5303C19.7626 20.8232 20.2374 20.8232 20.5303 20.5303C20.8232 20.2374 20.8232 19.7626 20.5303 19.4697L19.4697 20.5303ZM17.25 10.5C17.25 14.2279 14.2279 17.25 10.5 17.25V18.75C15.0563 18.75 18.75 15.0563 18.75 10.5H17.25ZM10.5 17.25C6.77208 17.25 3.75 14.2279 3.75 10.5H2.25C2.25 15.0563 5.94365 18.75 10.5 18.75V17.25ZM3.75 10.5C3.75 6.77208 6.77208 3.75 10.5 3.75V2.25C5.94365 2.25 2.25 5.94365 2.25 10.5H3.75ZM10.5 3.75C14.2279 3.75 17.25 6.77208 17.25 10.5H18.75C18.75 5.94365 15.0563 2.25 10.5 2.25V3.75ZM20.5303 19.4697L16.3428 15.2821L15.2821 16.3428L19.4697 20.5303L20.5303 19.4697Z" fill="black"/></svg>',
             icon_account: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 21V19C20 16.7909 18.2091 15 16 15H8C5.79086 15 4 16.7909 4 19V21M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
@@ -70,6 +71,21 @@ theme.config = {
             help_visible: false,
             color: "#fff",
             background: "#ccc"
+            },
+            mobile:{
+type: "1",
+            fixed: "",
+            icon_search: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19.4697 20.5303C19.7626 20.8232 20.2374 20.8232 20.5303 20.5303C20.8232 20.2374 20.8232 19.7626 20.5303 19.4697L19.4697 20.5303ZM17.25 10.5C17.25 14.2279 14.2279 17.25 10.5 17.25V18.75C15.0563 18.75 18.75 15.0563 18.75 10.5H17.25ZM10.5 17.25C6.77208 17.25 3.75 14.2279 3.75 10.5H2.25C2.25 15.0563 5.94365 18.75 10.5 18.75V17.25ZM3.75 10.5C3.75 6.77208 6.77208 3.75 10.5 3.75V2.25C5.94365 2.25 2.25 5.94365 2.25 10.5H3.75ZM10.5 3.75C14.2279 3.75 17.25 6.77208 17.25 10.5H18.75C18.75 5.94365 15.0563 2.25 10.5 2.25V3.75ZM20.5303 19.4697L16.3428 15.2821L15.2821 16.3428L19.4697 20.5303L20.5303 19.4697Z" fill="black"/></svg>',
+            icon_account: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 21V19C20 16.7909 18.2091 15 16 15H8C5.79086 15 4 16.7909 4 19V21M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+            icon_cart: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 10H21M3 10L5 20H19L21 10M3 10L9 4M21 10L15 4" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+            icon_wishlist: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.3314 12.0474L12 20L19.6686 12.0474C20.5211 11.1633 21 9.96429 21 8.71405C21 6.11055 18.9648 4 16.4543 4C15.2487 4 14.0925 4.49666 13.24 5.38071L12 6.66667L10.76 5.38071C9.90749 4.49666 8.75128 4 7.54569 4C5.03517 4 3 6.11055 3 8.71405C3 9.96429 3.47892 11.1633 4.3314 12.0474Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+            icon_wishlist_visible: false,
+            icon_help: "asdsd",
+            help_visible: false,
+            color: "#fff",
+            background: "#ccc"
+            }
+            
         },
         logo: {
             height: 0,
@@ -117,7 +133,17 @@ theme.config = {
             show_resume: false,
             show_wishlist: false,
             show_brand: false,
-            show_sku: false
+            show_sku: false,
+            slider: {
+                infinite: false,
+                slidesToShow: 1,
+                slidesToShow_m: 1,
+                arrows: 1,
+                bullets: 1,
+                centerMode: 1,
+                arrow_left_url: "",
+                arrow_right_url: ""
+            }
         },
         category: {
             filter_type: "1",
@@ -140,6 +166,33 @@ theme.config = {
         not_found: {
             title: "",
             description: ""
+        },
+        product_listing: {
+            imageZoom: false,
+            imageFit: "cover",
+            imageType: 1,
+            lines: 3,
+            show_price_before: true,
+            show_price_installments: true,
+            show_price_at_sight: true,
+            show_wishlist: true,
+            name_color: "#000",
+            price_color: "#000",
+            button_background: "#fff",
+            button_color: "#000",
+            price_highlight_color: "#f00",
+            price_emphasis: 1,
+            slider: {
+                infinite: false,
+                slidesToShow: 4,
+                slidesToShow_m: 2,
+                arrows: 1,
+                bullets: 1,
+                centerMode: 1,
+                arrow_left_url: "",
+                arrow_right_url: ""
+            },
+            icon_seeMore: "",
         }
     },
     fonts: {
@@ -158,6 +211,20 @@ theme.config = {
             }
         },
         header: {
+            desktop: {
+                font_size: 0,
+                font_weight: "300",
+                letter_spacing: 0,
+                font_family: "<link/>"
+            },
+            mobile: {
+                font_size: 0,
+                font_weight: "300",
+                letter_spacing: 0,
+                font_family: "<link/>"
+            }
+        },
+         footer: {
             desktop: {
                 font_size: 0,
                 font_weight: "300",
@@ -292,7 +359,16 @@ theme.config = {
     },
     footer: {
         structure: {
-            type: "1",
+            desktop:{type: "1",
+            show_institutional: false,
+            show_categories: false,
+            show_newsletter: false,
+            color: "#000000",
+            background: "#000000",
+            titleColor: "#000000",
+            linkColor: "#000000"},
+            mobile:{
+                type: "1",
             show_institutional: false,
             show_categories: false,
             show_newsletter: false,
@@ -300,6 +376,8 @@ theme.config = {
             background: "#000000",
             titleColor: "#000000",
             linkColor: "#000000"
+            }
+            
         },
         pages: {
             show_pages: false,
@@ -317,7 +395,7 @@ theme.config = {
 };
 
 //PUSH EDITOR CONFIG
-theme.config = JSON.parse(localStorage.getItem('themeEditor'));
+//theme.config = JSON.parse(localStorage.getItem('themeEditor'));
 
 theme.templates = [];
 theme.templates.header = [];

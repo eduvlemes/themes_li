@@ -1,0 +1,690 @@
+{
+  "createdAt": "2025-10-07T10:00:00Z",
+  "updatedAt": "2025-10-07T10:00:00Z",
+  "themeName": "Vue Glamour Complete",
+  "themeAuthor": "Theme Developer",
+  "settings": {
+    "colors": {
+      "primary": "#C19A6B",
+      "secondary": "#FFFFFF",
+      "background": "#F5F5F5",
+      "text": "#333333",
+      "accent": "#E8D5C4",
+      "success": "#28a745",
+      "warning": "#ffc107",
+      "danger": "#dc3545"
+    },
+    "typography": {
+      "fontPrimary": "Arial, sans-serif",
+      "fontSecondary": "Georgia, serif",
+      "fontSizes": {
+        "xs": "12px",
+        "sm": "14px",
+        "md": "16px",
+        "lg": "18px",
+        "xl": "24px",
+        "xxl": "32px"
+      },
+      "fontWeights": {
+        "light": "300",
+        "normal": "400",
+        "medium": "500",
+        "semibold": "600",
+        "bold": "700"
+      }
+    },
+    "spacing": {
+      "xs": "4px",
+      "sm": "8px",
+      "md": "16px",
+      "lg": "24px",
+      "xl": "32px",
+      "xxl": "48px"
+    },
+    "breakpoints": {
+      "mobile": "768px",
+      "tablet": "1024px",
+      "desktop": "1200px"
+    }
+  },
+  "pages": {
+    "home": {
+      "seo": {
+        "title": "Página Inicial - Vue Glamour",
+        "description": "Bem-vindo à nossa loja online",
+        "keywords": "loja, produtos, compras"
+      },
+      "layout": {
+        "container": "full-width",
+        "background": "#FFFFFF"
+      },
+      "blocks": [
+        "heroBanner",
+        "featuredProducts",
+        "bannerGrid",
+        "testimonials",
+        "newsletter"
+      ]
+    },
+    "product": {
+      "seo": {
+        "title": "{{product.name}} - Vue Glamour",
+        "description": "{{product.description}}",
+        "keywords": "{{product.tags}}"
+      },
+      "layout": {
+        "container": "container",
+        "sidebar": "right"
+      },
+      "blocks": [
+        "productGallery",
+        "productInfo",
+        "relatedProducts",
+        "reviews"
+      ]
+    },
+    "category": {
+      "seo": {
+        "title": "{{category.name}} - Vue Glamour",
+        "description": "Explore nossa categoria {{category.name}}",
+        "keywords": "{{category.name}}, produtos"
+      },
+      "layout": {
+        "container": "container",
+        "sidebar": "left"
+      },
+      "blocks": [
+        "categoryHeader",
+        "productGrid",
+        "pagination",
+        "filters"
+      ]
+    },
+    "brand": {
+      "seo": {
+        "title": "{{brand.name}} - Vue Glamour",
+        "description": "Produtos da marca {{brand.name}}",
+        "keywords": "{{brand.name}}, marca"
+      },
+      "layout": {
+        "container": "container"
+      },
+      "blocks": [
+        "brandHeader",
+        "brandStory",
+        "productGrid"
+      ]
+    },
+    "search": {
+      "seo": {
+        "title": "Busca: {{query}} - Vue Glamour",
+        "description": "Resultados da busca por {{query}}",
+        "keywords": "busca, {{query}}"
+      },
+      "layout": {
+        "container": "container"
+      },
+      "blocks": [
+        "searchResults",
+        "searchFilters",
+        "popularSearches"
+      ]
+    }
+  },
+  "blocks": {
+    "heroBanner": {
+      "title": "Banner Principal",
+      "spacing": {
+        "top": "xl",
+        "bottom": "xl"
+      },
+      "settings": {
+        "autoplay": true,
+        "duration": 5000,
+        "showDots": true,
+        "showArrows": true
+      },
+      "items": [
+        {
+          "component": "banner",
+          "settings": {
+            "height": "500px",
+            "overlay": true,
+            "overlayOpacity": 0.3
+          }
+        }
+      ]
+    },
+    "bannerCarroussel": {
+      "title": "Carrossel de Banners",
+      "spacing": {
+        "top": "lg",
+        "bottom": "lg"
+      },
+      "settings": {
+        "itemsPerView": 3,
+        "autoplay": false,
+        "gap": "md"
+      },
+      "items": [
+        {
+          "component": "banner",
+          "settings": {
+            "height": "250px"
+          }
+        }
+      ]
+    },
+    "bannerGrid": {
+      "title": "Grade de Banners",
+      "spacing": {
+        "top": "lg",
+        "bottom": "lg"
+      },
+      "settings": {
+        "columns": {
+          "desktop": 3,
+          "tablet": 2,
+          "mobile": 1
+        },
+        "gap": "md"
+      },
+      "items": [
+        {
+          "component": "banner",
+          "settings": {
+            "aspectRatio": "16:9"
+          }
+        }
+      ]
+    },
+    "featuredProducts": {
+      "title": "Produtos em Destaque",
+      "spacing": {
+        "top": "xl",
+        "bottom": "xl"
+      },
+      "settings": {
+        "limit": 8,
+        "columns": {
+          "desktop": 4,
+          "tablet": 3,
+          "mobile": 2
+        },
+        "showQuickView": true,
+        "showWishlist": true
+      },
+      "items": [
+        {
+          "component": "productCard",
+          "settings": {
+            "showPrice": true,
+            "showRating": true,
+            "showBadge": true
+          }
+        }
+      ]
+    },
+    "productGrid": {
+      "title": "Grade de Produtos",
+      "spacing": {
+        "top": "lg",
+        "bottom": "lg"
+      },
+      "settings": {
+        "itemsPerPage": 12,
+        "columns": {
+          "desktop": 3,
+          "tablet": 2,
+          "mobile": 1
+        },
+        "sorting": true,
+        "filtering": true
+      },
+      "items": [
+        {
+          "component": "productCard"
+        }
+      ]
+    },
+    "testimonials": {
+      "title": "Depoimentos",
+      "spacing": {
+        "top": "xl",
+        "bottom": "xl"
+      },
+      "settings": {
+        "autoplay": true,
+        "showRating": true
+      },
+      "items": [
+        {
+          "component": "testimonialCard"
+        }
+      ]
+    },
+    "newsletter": {
+      "title": "Newsletter",
+      "spacing": {
+        "top": "xl",
+        "bottom": "xl"
+      },
+      "settings": {
+        "background": "#F8F9FA",
+        "showPrivacyNote": true
+      },
+      "items": [
+        {
+          "component": "newsletterForm"
+        }
+      ]
+    },
+    "productGallery": {
+      "title": "Galeria do Produto",
+      "spacing": {
+        "top": "md",
+        "bottom": "md"
+      },
+      "settings": {
+        "showThumbnails": true,
+        "zoomEnabled": true,
+        "lightbox": true
+      },
+      "items": [
+        {
+          "component": "imageGallery"
+        }
+      ]
+    },
+    "productInfo": {
+      "title": "Informações do Produto",
+      "spacing": {
+        "top": "md",
+        "bottom": "md"
+      },
+      "settings": {
+        "showSku": true,
+        "showBrand": true,
+        "showTags": true,
+        "showShare": true
+      },
+      "items": [
+        {
+          "component": "productDetails"
+        }
+      ]
+    },
+    "reviews": {
+      "title": "Avaliações",
+      "spacing": {
+        "top": "xl",
+        "bottom": "xl"
+      },
+      "settings": {
+        "allowGuests": false,
+        "moderateReviews": true,
+        "showPhotos": true
+      },
+      "items": [
+        {
+          "component": "reviewSystem"
+        }
+      ]
+    }
+  },
+  "components": {
+    "banner": {
+      "desktop": {
+        "image": {
+          "src": "https://via.placeholder.com/1200x400",
+          "alt": "Banner Desktop"
+        }
+      },
+      "mobile": {
+        "image": {
+          "src": "https://via.placeholder.com/800x600",
+          "alt": "Banner Mobile"
+        }
+      },
+      "content": {
+        "title": {
+          "text": "Título do Banner",
+          "color": "#FFFFFF",
+          "fontSize": "xxl",
+          "fontWeight": "bold",
+          "textAlign": "center"
+        },
+        "subtitle": {
+          "text": "Subtítulo do banner",
+          "color": "#FFFFFF",
+          "fontSize": "lg",
+          "fontWeight": "normal",
+          "textAlign": "center"
+        },
+        "button": {
+          "text": "Saiba Mais",
+          "url": "/produtos",
+          "style": "primary",
+          "size": "lg"
+        }
+      },
+      "overlay": {
+        "enabled": true,
+        "color": "#000000",
+        "opacity": 0.4
+      },
+      "animation": {
+        "type": "fadeIn",
+        "duration": 1000,
+        "delay": 0
+      }
+    },
+    "productCard": {
+      "image": {
+        "aspectRatio": "1:1",
+        "showHover": true,
+        "hoverImage": true
+      },
+      "content": {
+        "showBrand": true,
+        "showName": true,
+        "showPrice": true,
+        "showOriginalPrice": true,
+        "showDiscount": true,
+        "showRating": true,
+        "showQuickView": true
+      },
+      "badge": {
+        "newProduct": {
+          "enabled": true,
+          "text": "Novo",
+          "color": "#28a745"
+        },
+        "sale": {
+          "enabled": true,
+          "text": "Promoção",
+          "color": "#dc3545"
+        },
+        "outOfStock": {
+          "enabled": true,
+          "text": "Esgotado",
+          "color": "#6c757d"
+        }
+      },
+      "buttons": {
+        "addToCart": {
+          "text": "Adicionar ao Carrinho",
+          "style": "primary"
+        },
+        "wishlist": {
+          "enabled": true,
+          "style": "outline"
+        },
+        "compare": {
+          "enabled": true,
+          "style": "outline"
+        }
+      }
+    },
+    "testimonialCard": {
+      "content": {
+        "text": "Texto do depoimento",
+        "rating": 5,
+        "showRating": true
+      },
+      "author": {
+        "name": "Nome do Cliente",
+        "avatar": {
+          "src": "https://via.placeholder.com/80x80",
+          "alt": "Avatar do cliente"
+        },
+        "location": "Cidade, Estado"
+      },
+      "style": {
+        "background": "#FFFFFF",
+        "border": true,
+        "shadow": true
+      }
+    },
+    "newsletterForm": {
+      "content": {
+        "title": "Assine nossa Newsletter",
+        "description": "Receba novidades e ofertas exclusivas",
+        "privacyNote": "Seus dados estão seguros conosco"
+      },
+      "form": {
+        "fields": [
+          {
+            "type": "email",
+            "placeholder": "Seu e-mail",
+            "required": true
+          },
+          {
+            "type": "text",
+            "placeholder": "Seu nome",
+            "required": false
+          }
+        ],
+        "button": {
+          "text": "Assinar",
+          "style": "primary"
+        }
+      },
+      "style": {
+        "layout": "horizontal",
+        "background": "#F8F9FA",
+        "padding": "xl"
+      }
+    },
+    "imageGallery": {
+      "main": {
+        "aspectRatio": "4:3",
+        "zoomEnabled": true,
+        "lightboxEnabled": true
+      },
+      "thumbnails": {
+        "position": "bottom",
+        "size": "80px",
+        "gap": "sm",
+        "scrollable": true
+      },
+      "navigation": {
+        "showArrows": true,
+        "showDots": false
+      }
+    },
+    "productDetails": {
+      "name": {
+        "fontSize": "xl",
+        "fontWeight": "bold",
+        "color": "#333333"
+      },
+      "sku": {
+        "show": true,
+        "label": "SKU:",
+        "fontSize": "sm",
+        "color": "#6c757d"
+      },
+      "brand": {
+        "show": true,
+        "fontSize": "md",
+        "color": "#007bff"
+      },
+      "price": {
+        "fontSize": "xl",
+        "fontWeight": "bold",
+        "color": "#C19A6B"
+      },
+      "originalPrice": {
+        "show": true,
+        "fontSize": "md",
+        "color": "#6c757d",
+        "textDecoration": "line-through"
+      },
+      "description": {
+        "fontSize": "md",
+        "color": "#333333",
+        "lineHeight": "1.6"
+      },
+      "rating": {
+        "show": true,
+        "starColor": "#ffc107",
+        "showCount": true
+      }
+    },
+    "title": {
+      "text": "Título da Seção",
+      "level": "h2",
+      "fontSize": "xl",
+      "fontWeight": "bold",
+      "color": "#333333",
+      "textAlign": "center",
+      "margin": {
+        "top": "lg",
+        "bottom": "lg"
+      }
+    },
+    "spacing": {
+      "height": "md",
+      "background": "transparent"
+    }
+  },
+  "elements": {
+    "image": {
+      "src": "https://via.placeholder.com/400x300",
+      "alt": "Imagem",
+      "title": "",
+      "loading": "lazy",
+      "aspectRatio": "auto",
+      "objectFit": "cover",
+      "border": {
+        "width": "0px",
+        "style": "solid",
+        "color": "#dee2e6",
+        "radius": "4px"
+      },
+      "shadow": {
+        "enabled": false,
+        "blur": "10px",
+        "color": "rgba(0,0,0,0.1)"
+      },
+      "hover": {
+        "enabled": false,
+        "scale": 1.05,
+        "transition": "0.3s ease"
+      }
+    },
+    "video": {
+      "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      "type": "youtube",
+      "autoplay": false,
+      "muted": true,
+      "controls": true,
+      "loop": false,
+      "aspectRatio": "16:9",
+      "poster": "https://via.placeholder.com/640x360",
+      "privacy": {
+        "enablePrivacyMode": true
+      }
+    },
+    "inputText": {
+      "type": "text",
+      "placeholder": "Digite aqui...",
+      "label": "Campo de Texto",
+      "required": false,
+      "maxLength": 255,
+      "validation": {
+        "pattern": "",
+        "message": "Campo inválido"
+      },
+      "style": {
+        "fontSize": "md",
+        "padding": "sm",
+        "border": {
+          "width": "1px",
+          "style": "solid",
+          "color": "#ced4da",
+          "radius": "4px"
+        },
+        "focus": {
+          "borderColor": "#C19A6B",
+          "shadow": "0 0 0 0.2rem rgba(193, 154, 107, 0.25)"
+        }
+      }
+    },
+    "button": {
+      "text": "Clique Aqui",
+      "url": "#",
+      "target": "_self",
+      "style": "primary",
+      "size": "md",
+      "fullWidth": false,
+      "disabled": false,
+      "loading": false,
+      "icon": {
+        "enabled": false,
+        "name": "arrow-right",
+        "position": "right"
+      },
+      "styles": {
+        "primary": {
+          "background": "#C19A6B",
+          "color": "#FFFFFF",
+          "border": "#C19A6B"
+        },
+        "secondary": {
+          "background": "#6c757d",
+          "color": "#FFFFFF",
+          "border": "#6c757d"
+        },
+        "outline": {
+          "background": "transparent",
+          "color": "#C19A6B",
+          "border": "#C19A6B"
+        }
+      }
+    },
+    "text": {
+      "content": "Texto do elemento",
+      "tag": "p",
+      "fontSize": "md",
+      "fontWeight": "normal",
+      "color": "#333333",
+      "textAlign": "left",
+      "lineHeight": "1.5",
+      "margin": {
+        "top": "0",
+        "bottom": "md"
+      },
+      "responsive": {
+        "mobile": {
+          "fontSize": "sm",
+          "textAlign": "center"
+        }
+      }
+    },
+    "icon": {
+      "name": "star",
+      "library": "font-awesome",
+      "size": "md",
+      "color": "#333333",
+      "style": "solid",
+      "animation": {
+        "enabled": false,
+        "type": "spin",
+        "duration": "2s"
+      }
+    },
+    "divider": {
+      "type": "line",
+      "width": "100%",
+      "height": "1px",
+      "color": "#dee2e6",
+      "style": "solid",
+      "margin": {
+        "top": "lg",
+        "bottom": "lg"
+      }
+    }
+  }
+}

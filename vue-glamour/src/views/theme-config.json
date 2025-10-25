@@ -1,0 +1,263 @@
+{
+  "settings": {
+    "colors": {
+      "primaryColor": {
+        "label": "Cor Principal",
+        "type": "color",
+        "value": "#C19A6B",
+        "description": "Cor predominante do tema"
+      },
+      "secondaryColor": {
+        "label": "Cor Secundária", 
+        "type": "color",
+        "value": "#FFFFFF",
+        "description": "Cor secundária utilizada para contrastes"
+      },
+      "siteBackgroundColor": {
+        "label": "Cor de fundo do site",
+        "type": "color", 
+        "value": "#F5F5F5",
+        "description": "Cor de fundo principal do site"
+      },
+      "generalTextColor": {
+        "label": "Cor do texto geral",
+        "type": "color",
+        "value": "#333333", 
+        "description": "Cor padrão dos textos"
+      },
+      "titleColor": {
+        "label": "Cor dos títulos",
+        "type": "color",
+        "value": "#1A1A1A",
+        "description": "Cor dos títulos e cabeçalhos"
+      },
+      "primaryButtonBackgroundColor": {
+        "label": "Cor de fundo do botão principal",
+        "type": "color",
+        "value": "#C19A6B",
+        "description": "Cor de fundo dos botões principais"
+      },
+      "primaryButtonTextColor": {
+        "label": "Cor de texto do botão principal", 
+        "type": "color",
+        "value": "#FFFFFF",
+        "description": "Cor do texto dos botões principais"
+      },
+      "secondaryButtonBackgroundColor": {
+        "label": "Cor de fundo do botão secundário",
+        "type": "color",
+        "value": "#FFFFFF",
+        "description": "Cor de fundo dos botões secundários"
+      },
+      "secondaryButtonTextColor": {
+        "label": "Cor de texto do botão secundário",
+        "type": "color", 
+        "value": "#C19A6B",
+        "description": "Cor do texto dos botões secundários"
+      },
+      "borderDividerColor": {
+        "label": "Cor das bordas/divisórias",
+        "type": "color",
+        "value": "#E0E0E0",
+        "description": "Cor das bordas e elementos divisórios"
+      }
+    },
+    "fonts": {
+      "titleFont": {
+        "label": "Fonte de título",
+        "fontFamily": {
+          "label": "Família da fonte",
+          "type": "select",
+          "value": "Poppins, sans-serif",
+          "options": [
+            { "label": "Poppins", "value": "Poppins, sans-serif" },
+            { "label": "Roboto", "value": "Roboto, sans-serif" },
+            { "label": "Open Sans", "value": "Open Sans, sans-serif" },
+            { "label": "Lato", "value": "Lato, sans-serif" },
+            { "label": "Montserrat", "value": "Montserrat, sans-serif" },
+            { "label": "Playfair Display", "value": "Playfair Display, serif" },
+            { "label": "Merriweather", "value": "Merriweather, serif" },
+            { "label": "Arial", "value": "Arial, sans-serif" },
+            { "label": "Georgia", "value": "Georgia, serif" },
+            { "label": "Times New Roman", "value": "Times New Roman, serif" }
+          ]
+        },
+        "fontSize": {
+          "desktop": {
+            "label": "Tamanho da fonte (Desktop)",
+            "type": "range",
+            "value": 32,
+            "min": 16,
+            "max": 72,
+            "step": 2,
+            "unit": "px"
+          },
+          "mobile": {
+            "label": "Tamanho da fonte (Mobile)",
+            "type": "range",
+            "value": 24,
+            "min": 14,
+            "max": 48,
+            "step": 2,
+            "unit": "px"
+          }
+        },
+        "letterSpacing": {
+          "label": "Espaçamento da fonte",
+          "type": "range",
+          "value": 0,
+          "min": -2,
+          "max": 10,
+          "step": 0.1,
+          "unit": "px"
+        },
+        "fontWeight": {
+          "label": "Font Weight",
+          "type": "select",
+          "value": "700",
+          "options": [
+            { "label": "100 - Thin", "value": "100" },
+            { "label": "200 - Extra Light", "value": "200" },
+            { "label": "300 - Light", "value": "300" },
+            { "label": "400 - Normal", "value": "400" },
+            { "label": "500 - Medium", "value": "500" },
+            { "label": "600 - Semi Bold", "value": "600" },
+            { "label": "700 - Bold", "value": "700" },
+            { "label": "800 - Extra Bold", "value": "800" },
+            { "label": "900 - Black", "value": "900" }
+          ]
+        }
+      },
+      "subtitleFont": {
+        "label": "Fonte de subtítulo",
+        "fontFamily": {
+          "label": "Família da fonte",
+          "type": "select",
+          "value": "Poppins, sans-serif",
+          "options": [
+            { "label": "Poppins", "value": "Poppins, sans-serif" },
+            { "label": "Roboto", "value": "Roboto, sans-serif" },
+            { "label": "Open Sans", "value": "Open Sans, sans-serif" },
+            { "label": "Lato", "value": "Lato, sans-serif" },
+            { "label": "Montserrat", "value": "Montserrat, sans-serif" },
+            { "label": "Playfair Display", "value": "Playfair Display, serif" },
+            { "label": "Merriweather", "value": "Merriweather, serif" },
+            { "label": "Arial", "value": "Arial, sans-serif" },
+            { "label": "Georgia", "value": "Georgia, serif" },
+            { "label": "Times New Roman", "value": "Times New Roman, serif" }
+          ]
+        },
+        "fontSize": {
+          "desktop": {
+            "label": "Tamanho da fonte (Desktop)",
+            "type": "range",
+            "value": 20,
+            "min": 12,
+            "max": 48,
+            "step": 2,
+            "unit": "px"
+          },
+          "mobile": {
+            "label": "Tamanho da fonte (Mobile)",
+            "type": "range",
+            "value": 18,
+            "min": 12,
+            "max": 32,
+            "step": 2,
+            "unit": "px"
+          }
+        },
+        "espacamentoFonte": {
+          "label": "Espaçamento da fonte",
+          "type": "range",
+          "value": 0,
+          "min": -2,
+          "max": 10,
+          "step": 0.1,
+          "unit": "px"
+        },
+        "fontWeight": {
+          "label": "Font Weight",
+          "type": "select",
+          "value": "600",
+          "options": [
+            { "label": "100 - Thin", "value": "100" },
+            { "label": "200 - Extra Light", "value": "200" },
+            { "label": "300 - Light", "value": "300" },
+            { "label": "400 - Normal", "value": "400" },
+            { "label": "500 - Medium", "value": "500" },
+            { "label": "600 - Semi Bold", "value": "600" },
+            { "label": "700 - Bold", "value": "700" },
+            { "label": "800 - Extra Bold", "value": "800" },
+            { "label": "900 - Black", "value": "900" }
+          ]
+        }
+      },
+      "textFont": {
+        "label": "Fonte de texto (padrão)",
+        "fontFamily": {
+          "label": "Família da fonte",
+          "type": "select",
+          "value": "Open Sans, sans-serif",
+          "options": [
+            { "label": "Poppins", "value": "Poppins, sans-serif" },
+            { "label": "Roboto", "value": "Roboto, sans-serif" },
+            { "label": "Open Sans", "value": "Open Sans, sans-serif" },
+            { "label": "Lato", "value": "Lato, sans-serif" },
+            { "label": "Montserrat", "value": "Montserrat, sans-serif" },
+            { "label": "Playfair Display", "value": "Playfair Display, serif" },
+            { "label": "Merriweather", "value": "Merriweather, serif" },
+            { "label": "Arial", "value": "Arial, sans-serif" },
+            { "label": "Georgia", "value": "Georgia, serif" },
+            { "label": "Times New Roman", "value": "Times New Roman, serif" }
+          ]
+        },
+        "fontSize": {
+          "desktop": {
+            "label": "Tamanho da fonte (Desktop)",
+            "type": "range",
+            "value": 16,
+            "min": 10,
+            "max": 24,
+            "step": 1,
+            "unit": "px"
+          },
+          "mobile": {
+            "label": "Tamanho da fonte (Mobile)",
+            "type": "range",
+            "value": 14,
+            "min": 10,
+            "max": 20,
+            "step": 1,
+            "unit": "px"
+          }
+        },
+        "letterSpacing": {
+          "label": "Espaçamento da fonte",
+          "type": "range",
+          "value": 0,
+          "min": -2,
+          "max": 10,
+          "step": 0.1,
+          "unit": "px"
+        },
+        "fontWeight": {
+          "label": "Font Weight",
+          "type": "select",
+          "value": "400",
+          "options": [
+            { "label": "100 - Thin", "value": "100" },
+            { "label": "200 - Extra Light", "value": "200" },
+            { "label": "300 - Light", "value": "300" },
+            { "label": "400 - Normal", "value": "400" },
+            { "label": "500 - Medium", "value": "500" },
+            { "label": "600 - Semi Bold", "value": "600" },
+            { "label": "700 - Bold", "value": "700" },
+            { "label": "800 - Extra Bold", "value": "800" },
+            { "label": "900 - Black", "value": "900" }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -43,45 +43,10 @@
                 <div v-if="typeof field === 'object'" class="group__1">
                   <strong>{{ editorConfig[fieldKey]?.text || fieldKey}}</strong>
                   <div class="group__1__exp">
-                    <div v-for="(field_, fieldKey_) in theme[expandedSection][expandedKey][fieldKey]" 
-                         :key="fieldKey_" 
-                         :class="'group__2' + (typeof field_ === 'object' ? ' inner-groups' : '') + (fieldKey_ === 'items' && Array.isArray(field_) ? ' list-draggable' : '')">
+                    <div v-for="(field_, fieldKey_) in theme[expandedSection][expandedKey][fieldKey]" :key="fieldKey_" :class="'group__2' +  (typeof field_ === 'object' ? ' inner-groups' : '')">
                       <strong :for="'input-' + fieldKey_">{{ editorConfig[fieldKey_]?.text || fieldKey_}}</strong>
                         
-                      <!-- Lista draggable para arrays "items" -->
-                      <div v-if="fieldKey_ === 'items' && Array.isArray(field_)" 
-                           class="items-list" 
-                           :ref="'sortable-' + fieldKey + '-' + fieldKey_"
-                           :data-field-key="fieldKey"
-                           :data-field-key-sub="fieldKey_">
-                        <div v-for="(item, itemIndex) in field_" 
-                             :key="'item-' + itemIndex" 
-                             class="sortable-item"
-                             :data-item-index="itemIndex">
-                          <div class="item-header">
-                            <span class="drag-handle">⋮⋮</span>
-                            <span class="item-title">Item {{ itemIndex + 1 }}</span>
-                          </div>
-                          <div class="item-content">
-                            <div v-for="(value, key) in item" :key="key" class="mb-2">
-                              <label class="form-label">{{ editorConfig[key]?.text || key }}</label>
-                              <input v-if="['color','text','url'].includes(fields[key]?.type)" 
-                                     :type="fields[key]?.type || 'text'" 
-                                     class="form-control" 
-                                     v-model="field_[itemIndex][key]">
-                              <textarea v-else-if="fields[key]?.type == 'textarea'" 
-                                        class="form-control" 
-                                        v-model="field_[itemIndex][key]"></textarea>
-                              <input v-else 
-                                     type="text" 
-                                     class="form-control" 
-                                     v-model="field_[itemIndex][key]">
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                        
-                      <div v-else-if="typeof field_ === 'object'" class="group__3">                        
+                      <div v-if="typeof field_ === 'object'" class="group__3">                        
                         <div v-for="(field__, fieldKey__) in theme[expandedSection][expandedKey][fieldKey][fieldKey_]" :key="fieldKey__" class="group__4 input-block">
                           <label :for="'input-' + fieldKey__">{{ editorConfig[fieldKey__]?.text || fieldKey__}}</label>
                           <input v-if="['color','text','url'].includes(fields[fieldKey__]?.type)" :type="fields[fieldKey__].type" class="form-control" :id="'input-' + fieldKey__" :value="theme[expandedSection][expandedKey][fieldKey][fieldKey__]" :required="fields[fieldKey__].required">
@@ -146,7 +111,7 @@
 
 <script>
     
-    import { Sortable } from '@shopify/draggable';
+    //const { Draggable } = ["vue-draggable-next"];
 
     export default {
       components: {  },
@@ -547,7 +512,6 @@
           expandedOptionKey:null,
           isExpandedOptionPanel: false,
           expandedOptionSection:null,
-          draggedItem: null, // Item sendo arrastado para listas "items"
         }        
       },
       methods: {
@@ -561,61 +525,6 @@
           this.expandedOptionKey = key;
           this.expandedOptionSection = section;
           this.isExpandedOptionPanel = true;
-          
-          // Inicializar sortables após o painel expandir
-          this.$nextTick(() => {
-            this.initializeSortables();
-          });
-        },
-        
-        // Métodos para Sortable
-        initializeSortables() {
-          // Encontrar todos os elementos com classe list-draggable
-          const sortableContainers = this.$el.querySelectorAll('.items-list');
-          
-          sortableContainers.forEach(container => {
-            // Verificar se já foi inicializado
-            if (container.sortable) {
-              container.sortable.destroy();
-            }
-            
-            const sortable = new Sortable(container, {
-              draggable: '.sortable-item',
-              handle: '.drag-handle',
-              mirror: {
-                appendTo: container,
-                constrainDimensions: true
-              }
-            });
-            
-            // Armazenar referência
-            container.sortable = sortable;
-            
-            // Listener para quando o sort terminar
-            sortable.on('sortable:stop', (evt) => {
-              this.onSortEnd(evt, container);
-            });
-          });
-        },
-        
-        onSortEnd(evt, container) {
-          const { oldIndex, newIndex } = evt;
-          
-          if (oldIndex === newIndex) return;
-          
-          // Obter fieldKey e fieldKey_ dos data attributes
-          const fieldKey = container.dataset.fieldKey;
-          const fieldKey_ = container.dataset.fieldKeySub;
-          
-          if (!fieldKey || !fieldKey_) return;
-          
-          // Reordenar no JSON
-          const array = this.theme[this.expandedSection][this.expandedKey][fieldKey][fieldKey_];
-          const [movedItem] = array.splice(oldIndex, 1);
-          array.splice(newIndex, 0, movedItem);
-          
-          // Forçar reatividade
-          this.$forceUpdate();
         },
       },
       computed: {
@@ -644,20 +553,15 @@
           return null;
         },
       },
-      
-      mounted() {
-        this.$nextTick(() => {
-          this.initializeSortables();
-        });
-      }
     }
     
   </script>
 
 <style>
 aside{
-  height: -webkit-fill-available;
-  overflow-y: scroll;
+  width: 320px!important;
+  height: calc(100dvh - 73px);
+  overflow-y:auto
 }
 
 .block{
@@ -697,9 +601,7 @@ aside{
   font-size: 14px;
   text-decoration: none;
 }
-.group__1 {
-  position: relative;
-}
+.group__1{}
 .group__1 > strong{
   text-transform: uppercase;
   font-size: 14px;
@@ -711,9 +613,7 @@ aside{
   display: block;
   padding: 1rem 0;
 }
-.group__1 > .group__1__exp {
-  position: relative;
-}
+.group__1 > .group__1__exp{}
 
 .group__1 > .group__1__exp .group__2.inner-groups > strong{
   text-transform: uppercase;
@@ -776,109 +676,4 @@ aside > div > h2{
   padding: 1rem;
 }
 aside > div > h2 + .list-group{margin-bottom: 3rem;}
-
-/* Estilos para Sortable */
-.list-draggable {
-  background: #e3f2fd !important;
-  border: 2px dashed #1976d2 !important;
-  padding: 1rem !important;
-  border-radius: 8px !important;
-}
-
-.list-draggable .group__2 {
-  margin-bottom: 0.5rem;
-}
-
-.items-list {
-  min-height: 50px;
-  padding: 0.5rem;
-  border: 1px solid #e0e0e0;
-  border-radius: 6px;
-  background: #fafafa;
-}
-
-.sortable-item {
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  margin-bottom: 0.5rem;
-  padding: 0;
-  transition: all 0.2s ease;
-  cursor: move;
-}
-
-.sortable-item:hover {
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  transform: translateY(-1px);
-}
-
-.sortable-item:last-child {
-  margin-bottom: 0;
-}
-
-.item-header {
-  display: flex;
-  align-items: center;
-  padding: 0.75rem;
-  background: #f8f9fa;
-  border-bottom: 1px solid #e9ecef;
-  border-radius: 6px 6px 0 0;
-  cursor: grab;
-}
-
-.item-header:active {
-  cursor: grabbing;
-}
-
-.drag-handle {
-  color: #6c757d;
-  font-size: 16px;
-  margin-right: 0.5rem;
-  cursor: grab;
-}
-
-.drag-handle:hover {
-  color: #495057;
-}
-
-.item-title {
-  font-weight: 500;
-  color: #495057;
-  font-size: 14px;
-}
-
-.item-content {
-  padding: 1rem;
-}
-
-.item-content .form-label {
-  font-size: 12px;
-  font-weight: 500;
-  color: #6c757d;
-  margin-bottom: 0.25rem;
-}
-
-.item-content .form-control {
-  font-size: 13px;
-  padding: 0.375rem 0.5rem;
-}
-
-/* Estilos para o estado de dragging */
-.draggable--is-dragging {
-  opacity: 0.5;
-  transform: rotate(5deg);
-}
-
-.draggable-mirror {
-  opacity: 0.8;
-  transform: rotate(5deg);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-}
-
-.sortable-placeholder {
-  background: #e3f2fd;
-  border: 2px dashed #1976d2;
-  border-radius: 6px;
-  margin-bottom: 0.5rem;
-}
 </style>
