@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editor de Tema - Loja Integrada</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f0f2f5;
+        }
+
+        .editor-container {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            min-height: 100vh;
+            max-height: 100vh;
+            overflow: hidden;
+        }
+
+        .editor-sidebar {
+            background: #fff;
+            padding: 30px;
+            overflow-y: auto;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.05);
+        }
+
+        .editor-sidebar h1 {
+            font-size: 24px;
+            margin-bottom: 30px;
+            color: #1a1a1a;
+        }
+
+        .editor-group {
+            margin-bottom: 35px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .editor-group:last-of-type {
+            border-bottom: none;
+        }
+
+        .editor-group h3 {
+            font-size: 16px;
+            margin-bottom: 20px;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .editor-field {
+            margin-bottom: 18px;
+        }
+
+        .editor-field label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 13px;
+            color: #495057;
+            font-weight: 500;
+        }
+
+        .editor-field input[type="color"],
+        .editor-field input[type="number"],
+        .editor-field input[type="text"],
+        .editor-field input[type="tel"],
+        .editor-field select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .editor-field input[type="color"] {
+            height: 42px;
+            cursor: pointer;
+        }
+
+        .editor-field input:focus,
+        .editor-field select:focus {
+            outline: none;
+            border-color: #000;
+            box-shadow: 0 0 0 3px rgba(0,0,0,0.1);
+        }
+
+        .editor-field input[type="range"] {
+            width: calc(100% - 50px);
+            margin-right: 10px;
+        }
+
+        .editor-field input[type="checkbox"] {
+            margin-right: 8px;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .range-value {
+            display: inline-block;
+            width: 40px;
+            text-align: center;
+            font-weight: 600;
+            color: #000;
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 15px;
+            background: #000;
+            color: #fff;
+            border: 0;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.2s;
+            margin-top: 10px;
+        }
+
+        .btn-primary:hover {
+            background: #333;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .btn-secondary {
+            width: 100%;
+            padding: 15px;
+            background: #6c757d;
+            color: #fff;
+            border: 0;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.2s;
+            margin-top: 10px;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .preview-tabs {
+            display: flex;
+            background: #fff;
+            border-bottom: 2px solid #e9ecef;
+            padding: 0 20px;
+        }
+
+        .preview-tab {
+            padding: 15px 25px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            color: #6c757d;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+            transition: all 0.2s;
+        }
+
+        .preview-tab:hover {
+            color: #000;
+        }
+
+        .preview-tab.active {
+            color: #000;
+            border-bottom-color: #000;
+        }
+
+        .preview-content {
+            display: none;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .preview-content.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .preview-iframe-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #f0f2f5;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        .preview-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #fff;
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .preview-url {
+            flex: 1;
+            padding: 8px 12px;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            font-size: 13px;
+            margin: 0 10px;
+        }
+
+        .preview-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-small {
+            padding: 8px 15px;
+            background: #6c757d;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .btn-small:hover {
+            background: #5a6268;
+        }
+
+        #previewFrame {
+            flex: 1;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            background: #fff;
+            width: 100%;
+        }
+
+        .preview-code-container {
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .editor-preview h2 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #1a1a1a;
+        }
+
+        .editor-preview p {
+            color: #6c757d;
+            margin-bottom: 20px;
+        }
+
+        .editor-preview code {
+            background: #f8f9fa;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #e83e8c;
+        }
+
+        #codeOutput {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 25px;
+            border-radius: 8px;
+            overflow-x: auto;
+            max-height: 70vh;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            border: 1px solid #333;
+        }
+
+        .alert {
+            padding: 12px 16px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-size: 13px;
+        }
+
+        .alert-info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        @media (max-width: 768px) {
+            .editor-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="editor-container">
+        <div class="editor-sidebar">
+            <h1>⚙️ Editor de Tema</h1>
+            
+            <div class="alert alert-info">
+                💡 <strong>Dica:</strong> Ajuste as configurações abaixo e clique em "Gerar Código" para obter o código personalizado.
+            </div>
+
+            <!-- CORES -->
+            <div class="editor-group">
+                <h3>🎨 Cores</h3>
+                <div class="editor-field">
+                    <label>Cor Principal</label>
+                    <input type="color" id="primaryColor" value="#000000">
+                </div>
+                <div class="editor-field">
+                    <label>Cor Secundária</label>
+                    <input type="color" id="secondaryColor" value="#666666">
+                </div>
+                <div class="editor-field">
+                    <label>Cor dos Botões</label>
+                    <input type="color" id="buttonColor" value="#000000">
+                </div>
+            </div>
+
+            <!-- TIPOGRAFIA -->
+            <div class="editor-group">
+                <h3>📝 Tipografia</h3>
+                <div class="editor-field">
+                    <label>Fonte do Corpo</label>
+                    <select id="bodyFont">
+                        <option value="Poppins" selected>Poppins</option>
+                        <option value="Roboto">Roboto</option>
+                        <option value="Open Sans">Open Sans</option>
+                        <option value="Montserrat">Montserrat</option>
+                        <option value="Lato">Lato</option>
+                    </select>
+                </div>
+                <div class="editor-field">
+                    <label>Tamanho do Texto (px)</label>
+                    <input type="number" id="bodySize" value="12" min="10" max="20">
+                </div>
+                <div class="editor-field">
+                    <label>Peso da Fonte</label>
+                    <select id="bodyWeight">
+                        <option value="300">Light (300)</option>
+                        <option value="400" selected>Regular (400)</option>
+                        <option value="500">Medium (500)</option>
+                        <option value="600">Semi-Bold (600)</option>
+                        <option value="700">Bold (700)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- HEADER -->
+            <div class="editor-group">
+                <h3>📌 Cabeçalho</h3>
+                <div class="editor-field">
+                    <label>Altura Logo Desktop (px)</label>
+                    <input type="number" id="logoDesktop" value="70" min="40" max="120">
+                </div>
+                <div class="editor-field">
+                    <label>Altura Logo Mobile (px)</label>
+                    <input type="number" id="logoMobile" value="40" min="30" max="80">
+                </div>
+                <div class="editor-field">
+                    <label>
+                        <input type="checkbox" id="invertHeader">
+                        Inverter cores do header
+                    </label>
+                </div>
+            </div>
+
+            <!-- PRODUTOS -->
+            <div class="editor-group">
+                <h3>🛍️ Produtos</h3>
+                <div class="editor-field">
+                    <label>Proporção de Imagens</label>
+                    <input type="range" id="imageSize" min="0.8" max="2" step="0.1" value="1.4">
+                    <span class="range-value" id="imageSizeValue">1.4</span>
+                </div>
+                <div class="editor-field">
+                    <label>
+                        <input type="checkbox" id="productListImageFill" checked>
+                        Preencher espaço da imagem
+                    </label>
+                </div>
+                <div class="editor-field">
+                    <label>
+                        <input type="checkbox" id="productExcerpt">
+             div class="preview-tabs">
+                <button class="preview-tab active" data-tab="preview">👁️ Preview ao Vivo</button>
+                <button class="preview-tab" data-tab="code">📋 Código Gerado</button>
+            </div>
+
+            <!-- TAB: PREVIEW -->
+            <div class="preview-content active" id="preview-tab">
+                <div class="preview-iframe-container">
+                    <div class="preview-toolbar">
+                        <span style="font-weight: 600; font-size: 14px;">🌐 Preview</span>
+                        <input type="text" class="preview-url" id="previewUrl" placeholder="Digite a URL da sua loja (ex: https://minhaloja.lojaintegrada.com.br)">
+                        <div class="preview-actions">
+                            <button class="btn-small" id="loadPreview">Carregar</button>
+                            <button class="btn-small" id="refreshPreview">🔄 Atualizar</button>
+                        </div>
+                    </div>
+                    <iframe id="previewFrame" sandbox="allow-same-origin allow-scripts allow-forms"></iframe>
+                </div>
+            </div>
+
+            <!-- TAB: CÓDIGO -->
+            <div class="preview-content" id="code-tab">
+                <div class="preview-code-container">
+                    <h2>📋 Código Gerado</h2>
+                    <p>Cole este código no campo <strong>"JavaScript"</strong> do painel administrativo da Loja Integrada:</p>
+                    
+                    <div class="alert alert-info">
+                        📍 <strong>Onde colar:</strong><br>
+                        Painel Admin → Configurações → Layout → Preferências → Campo <strong>"JavaScript"</strong>
+                    </div>
+                    
+                    <div class="alert alert-info" style="display: none;" id="copySuccess">
+                        ✅ Código copiado com sucesso!
+                    </div>
+
+                    <pre id="codeOutput"></pre>
+                </div>
+            </div
+                </div>
+            </div>
+
+            <!-- BOTÕES -->
+            <div class="editor-group">
+                <h3>🔘 Botões e Bordas</h3>
+                <div class="editor-field">
+                    <label>Border Radius (px)</label>
+                    <input type="number" id="borderRadius" value="30" min="0" max="50">
+                </div>
+            </div>
+
+            <!-- CARRINHO -->
+            <div class="editor-group">
+                <h3>🛒 Carrinho</h3>
+                <div class="editor-field">
+                    <label>
+                        <input type="checkbox" id="sideCheckout" checked>
+                        Carrinho Lateral
+                    </label>
+                </div>
+            </div>
+
+            <!-- FUNCIONALIDADES -->
+            <div class="editor-group">
+                <h3>⚡ Funcionalidades</h3>
+                <div class="editor-field">
+                    <label>
+                        <input type="checkbox" id="whatsappButton">
+                        Botão Flutuante WhatsApp
+                    </label>
+                </div>
+                <div class="editor-field">
+                    <label>Número WhatsApp (com DDI)</label>
+                    <input type="tel" id="whatsappNumber" placeholder="5511999999999">
+                    <small style="color: #6c757d; font-size: 11px;">Ex: 5511999999999</small>
+                </div>
+                <div class="editor-field">
+                    <label>
+                        <input type="checkbox" id="extraPagination" checked>
+                        Paginação Extra (no topo)
+                    </label>
+                </div>
+                <div class="editor-field">
+                    <label>
+                        <input type="checkbox" id="instagramFeed">
+                        Feed do Instagram
+                    </label>
+                </div>
+            </div>
+
+            <!-- FOOTER -->
+            <div class="editor-group">
+                <h3>📄 Rodapé</h3>
+                <div class="editor-field">
+                    <label>
+                        <input type="checkbox" id="footerSocial">
+                        Mostrar Redes Sociais
+                    </label>
+                </div>
+                <div class="editor-field">
+                    <label>
+                        <input type="checkbox" id="footerPayments" checked>
+                        Mostrar Formas de Pagamento
+                    </label>
+                </div>
+                <div class="editor-field">
+                    <label>
+                        <input type="checkbox" id="footerCategories" checked>
+                        Mostrar Categorias
+                    </label>
+                </div>
+                <div class="editor-field">
+                    <label>
+                        <input type="checkbox" id="footerPages" checked>
+                        Mostrar Páginas
+                    </label>
+                </div>
+                <div class="editor-field">
+                    <label>
+                        <input type="checkbox" id="footerNewsletter" checked>
+                        Mostrar Newsletter
+                    </label>
+                </div>
+            </div>
+
+            <button class="btn-primary" id="generateCode">🚀 Gerar Código</button>
+            <button class="btn-secondary" id="copyCode">📋 Copiar para Clipboard</button>
+        </div>
+
+        <div class="editor-preview">
+            <h2>📋 Código Gerado</h2>
+            <p>Cole este código no campo <strong>"JavaScript"</strong> do painel administrativo da Loja Integrada:</p>
+            
+            <div class="alert alert-info">
+                📍 <strong>Onde colar:</strong><br>
+                Painel Admin → Configurações → Layout → Preferências → Campo <strong>"JavaScript"</strong>
+            </div>
+            
+            <div class="alert alert-info" style="display: none;" id="copySuccess">
+                ✅ Código copiado com sucesso!
+            </div>
+
+            <pre id="codeOutput"></pre>
+        </div>
+    </div>
+
+    <script>
+        // Função para gerar código
+        function generateCode() {
+            const config = {
+                // Cores
+                primaryColor: document.getElementById('primaryColor').value,
+                secondaryColor: document.getElementById('secondaryColor').value,
+                buttonColor: document.getElementById('buttonColor').value,
+                
+                // Tipografia
+                bodyFont: document.getElementById('bodyFont').value,
+                bodySize: document.getElementById('bodySize').value,
+                bodyWeight: document.getElementById('bodyWeight').value,
+                
+                // Header
+                logoDesktop: document.getElementById('logoDesktop').value,
+                logoMobile: document.getElementById('logoMobile').value,
+                invertHeader: document.getElementById('invertHeader').checked,
+                
+                // Produtos
+                imageSize: document.getElementById('imageSize').value,
+                productListImageFill: document.getElementById('productListImageFill').checked,
+                productExcerpt: document.getElementById('productExcerpt').checked,
+                avisoEstoque: document.getElementById('avisoEstoque').value,
+                galeriaZoom: document.getElementById('galeriaZoom').checked,
+                
+                // Botões
+                borderRadius: document.getElementById('borderRadius').value,
+                
+                // Carrinho
+                sideCheckout: document.getElementById('sideCheckout').checked,
+                
+                // Funcionalidades
+                whatsappButton: document.getElementById('whatsappButton').checked,
+                whatsappNumber: document.getElementById('whatsappNumber').value,
+                extraPagination: document.getElementById('extraPagination').checked,
+                instagramFeed: document.getElementById('instagramFeed').checked,
+                
+                // Footer
+                footerSocial: document.getElementById('footerSocial').checked,
+                footerPayments: document.getElementById('footerPayments').checked,
+                footerCategories: document.getElementById('footerCategories').checked,
+                footerPages: document.getElementById('footerPages').checked,
+                footerNewsletter: document.getElementById('footerNewsletter').checked
+            };
+
+            const code = `// ============================================
+// CONFIGURAÇÕES CUSTOMIZADAS DO TEMA
+// Gerado pelo Theme Editor
+// Data: ${new Date().toLocaleString('pt-BR')}
+// ============================================
+// Cole este código no campo "JavaScript" do painel
+// administrativo da Loja Integrada
+// (já está pronto para colar, SEM a tag <script>)
+// ============================================
+
+(function() {.editor-sidebar input, .editor-sidebar select').forEach(element => {
+            element.addEventListener('change', () => {
+                generateCode();
+                updatePreview();
+            });
+            element.addEventListener('input', () => {
+                if (element.type === 'range' || element.type === 'color') {
+                    updatePreview();
+                }
+            });
+        });
+
+        // ==========================================
+        // SISTEMA DE TABS
+        // ==========================================
+        document.querySelectorAll('.preview-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                const tabName = tab.dataset.tab;
+                
+                // Remove active de todas as tabs
+                document.querySelectorAll('.preview-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.preview-content').forEach(c => c.classList.remove('active'));
+                
+                // Ativa a tab clicada
+                tab.classList.add('active');
+                document.getElementById(tabName + '-tab').classList.add('active');
+            });
+        });
+
+        // ==========================================
+        // PREVIEW AO VIVO
+        // ==========================================
+        let previewLoaded = false;
+
+        function updatePreview() {
+            if (!previewLoaded) return;
+
+            const iframe = document.getElementById('previewFrame');
+            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+            
+            if (!iframeDoc.documentElement) return;
+
+            const config = {
+                primaryColor: document.getElementById('primaryColor').value,
+                secondaryColor: document.getElementById('secondaryColor').value,
+                buttonColor: document.getElementById('buttonColor').value,
+                bodyFont: document.getElementById('bodyFont').value,
+                bodySize: document.getElementById('bodySize').value,
+                bodyWeight: document.getElementById('bodyWeight').value,
+                logoDesktop: document.getElementById('logoDesktop').value,
+                logoMobile: document.getElementById('logoMobile').value,
+                borderRadius: document.getElementById('borderRadius').value,
+                imageSize: document.getElementById('imageSize').value,
+            };
+
+            try {
+                // Aplica variáveis CSS
+                iframeDoc.documentElement.style.setProperty('--primaryColor', config.primaryColor);
+                iframeDoc.documentElement.style.setProperty('--secondaryColor', config.secondaryColor);
+                iframeDoc.documentElement.style.setProperty('--buttonColor', config.buttonColor);
+                iframeDoc.documentElement.style.setProperty('--bodyFontFamily', config.bodyFont);
+                iframeDoc.documentElement.style.setProperty('--bodyFontSize', config.bodySize + 'px');
+                iframeDoc.documentElement.style.setProperty('--bodyFontWeight', config.bodyWeight);
+                iframeDoc.documentElement.style.setProperty('--logoDesktop', config.logoDesktop + 'px');
+                iframeDoc.documentElement.style.setProperty('--logoMobile', config.logoMobile + 'px');
+                iframeDoc.documentElement.style.setProperty('--borderRadius', config.borderRadius + 'px');
+
+                // Tenta aplicar no objeto theme se existir
+                const iframeWindow = iframe.contentWindow;
+                if (iframeWindow.theme) {
+                    iframeWindow.theme.settings.imageSize = parseFloat(config.imageSize);
+                    
+                    // Tenta reaplicar tamanho de imagens
+                    if (typeof iframeWindow.theme.functions.productListImageSize === 'function') {
+                        iframeWindow.theme.functions.productListImageSize(parseFloat(config.imageSize));
+                    }
+                }
+
+                console.log('✅ Preview atualizado');
+            } catch (error) {
+                console.warn('⚠️ Não foi possível atualizar preview:', error);
+            }
+        }
+
+        function loadPreview() {
+            const url = document.getElementById('previewUrl').value.trim();
+            
+            if (!url) {
+                alert('Por favor, digite a URL da sua loja');
+                return;
+            }
+
+            const iframe = document.getElementById('previewFrame');
+            iframe.src = url;
+
+            iframe.onload = () => {
+                previewLoaded = true;
+                console.log('✅ Preview carregado');
+                
+                // Aguarda um pouco para o site carregar completamente
+                setTimeout(() => {
+                    updatePreview();
+                }, 2000);
+            };
+
+            iframe.onerror = () => {
+                alert('Erro ao carregar preview. Verifique se a URL está correta e se o site permite ser exibido em iframe.');
+                previewLoaded = false;
+            };
+        }
+
+        function refreshPreview() {
+            const iframe = document.getElementById('previewFrame');
+            if (iframe.src) {
+                iframe.src = iframe.src;
+            }
+        }
+
+        document.getElementById('loadPreview').addEventListener('click', loadPreview);
+        document.getElementById('refreshPreview').addEventListener('click', refreshPreview);
+
+        // Permite carregar com Enter
+        document.getElementById('previewUrl').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                loadPreview();
+            }
+    
+    // Aguarda o carregamento completo do tema
+    function applyCustomSettings() {
+        // Verifica se o objeto theme existe
+        if (typeof theme === 'undefined') {
+            console.warn('⚠️ Objeto theme não encontrado. Tentando novamente...');
+            setTimeout(applyCustomSettings, 100);
+            return;
+        }
+
+        console.log('✅ Aplicando configurações customizadas do tema...');
+
+        // ==========================================
+        // CORES
+        // ==========================================
+        document.documentElement.style.setProperty('--primaryColor', '${config.primaryColor}');
+        document.documentElement.style.setProperty('--secondaryColor', '${config.secondaryColor}');
+        document.documentElement.style.setProperty('--buttonColor', '${config.buttonColor}');
+
+        // ==========================================
+        // TIPOGRAFIA
+        // ==========================================
+        document.documentElement.style.setProperty('--bodyFontFamily', '${config.bodyFont}');
+        document.documentElement.style.setProperty('--bodyFontSize', '${config.bodySize}px');
+        document.documentElement.style.setProperty('--bodyFontWeight', '${config.bodyWeight}');
+
+        // ==========================================
+        // HEADER
+        // ==========================================
+        document.documentElement.style.setProperty('--logoDesktop', '${config.logoDesktop}px');
+        document.documentElement.style.setProperty('--logoMobile', '${config.logoMobile}px');
+        theme.settings.invertHeader = ${config.invertHeader};
+
+        // ==========================================
+        // PRODUTOS
+        // ==========================================
+        theme.settings.imageSize = ${config.imageSize};
+        theme.settings.productListImageFill = ${config.productListImageFill};
+        theme.settings.productExcerpt = ${config.productExcerpt};
+        theme.settings.avisoEstoque = ${config.avisoEstoque};
+        theme.settings.galeriaZoom = ${config.galeriaZoom};
+
+        // ==========================================
+        // BOTÕES E BORDAS
+        // ==========================================
+        document.documentElement.style.setProperty('--borderRadius', '${config.borderRadius}px');
+
+        // ==========================================
+        // CARRINHO
+        // ==========================================
+        theme.settings.sideCheckout = ${config.sideCheckout};
+
+        // ==========================================
+        // FUNCIONALIDADES
+        // ==========================================
+        theme.settings.whatsappButton = ${config.whatsappButton};
+        ${config.whatsappNumber ? `theme.worker.floatingWhatsapp.config.number = '${config.whatsappNumber}';` : '// WhatsApp não configurado'}
+        theme.settings.extraPagination = ${config.extraPagination};
+        theme.settings.instagramFeed = ${config.instagramFeed};
+
+        // ==========================================
+        // RODAPÉ
+        // ==========================================
+        theme.settings.footer.social = ${config.footerSocial};
+        theme.settings.footer.payments = ${config.footerPayments};
+        theme.settings.footer.categories = ${config.footerCategories};
+        theme.settings.footer.pages = ${config.footerPages};
+        theme.settings.footer.newsletter = ${config.footerNewsletter};
+
+        // ==========================================
+        // REAPLICA CONFIGURAÇÕES QUE DEPENDEM DOS SETTINGS
+        // ==========================================
+        
+        // Reaplica tamanho de imagens se necessário
+        if (typeof theme.functions.productListImageSize === 'function') {
+            theme.functions.productListImageSize(theme.settings.imageSize);
+        }
+
+        // Reaplica header invertido se necessário
+        if (theme.settings.invertHeader && $('#cabecalho').length) {
+            $('#cabecalho').addClass('theme_invert');
+        }
+
+        console.log('✅ Configurações customizadas aplicadas com sucesso!');
+    }
+
+    // Tenta aplicar as configurações assim que o DOM estiver pronto
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', applyCustomSettings);
+    } else {
+        applyCustomSettings();
+    }
+
+    // Fallback: tenta novamente após o window.load
+    window.addEventListener('load', function() {
+        setTimeout(applyCustomSettings, 500);
+    });
+
+})();
+
+// ============================================
+// FIM DAS CONFIGURAÇÕES CUSTOMIZADAS
+// ============================================`;
+
+            document.getElementById('codeOutput').textContent = code;
+        }
+
+        // Event listeners
+        document.getElementById('generateCode').addEventListener('click', generateCode);
+        
+        document.getElementById('copyCode').addEventListener('click', () => {
+            const code = document.getElementById('codeOutput').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                const alert = document.getElementById('copySuccess');
+                alert.style.display = 'block';
+                setTimeout(() => {
+                    alert.style.display = 'none';
+                }, 3000);
+            });
+        });
+
+        // Atualizar valor do range
+        document.getElementById('imageSize').addEventListener('input', (e) => {
+            document.getElementById('imageSizeValue').textContent = e.target.value;
+        });
+    </script>
+</body>
+</html>
