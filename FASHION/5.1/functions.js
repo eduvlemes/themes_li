@@ -707,7 +707,7 @@ theme.functions.init = function(){
 
         $('body').append('<div class="theme_aside-shadow"></div>');
         
-        if($('.carrinho-checkout').length == 0){}
+        if($('.carrinho-checkout').length == 0){theme.build.header(2);theme.build.asideMenu();}
         theme.build.footer(1);
         theme.build.search(1);    
         theme.build.account(1);    
@@ -1237,8 +1237,8 @@ theme.functions['pagina-produto'] = function(){
 theme.functions['pagina-carrinho'] = function(){
     if($('.carrinho-checkout').length > 0){
         //$('.tabela-carrinho').insertBefore('#formas-pagamento-wrapper');
-        // $('.tabela-carrinho').wrap('<div class="caixa-sombreada theme_order-resume"></div>');
-        // $('<legend class="titulo cor-secundaria"><i class="icon-archive"></i>Itens do pedido</legend>').insertBefore('.tabela-carrinho');
+        $('.tabela-carrinho').wrap('<div class="caixa-sombreada theme_order-resume"></div>');
+        $('<legend class="titulo cor-secundaria"><i class="icon-archive"></i>Itens do pedido</legend>').insertBefore('.tabela-carrinho');
     }
 };
 
